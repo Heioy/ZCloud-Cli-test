@@ -1,0 +1,15 @@
+[TestCase]
+
+# 定义测试用例套件运行的种类
+## all: <type str> 查找scripts目录下的所有Test*.py,并加载到测试套件中
+## module: <type list> 单独执行某一(多)个模块中的所有测试用例
+caseVarity = "all"
+#caseVarity = ["instancePool", "xxxxx"]
+
+# 测试日志存放目录
+loggerDirName = "Logs"
+
+# 测试日志记录条数
+loggerCount = 10
+
+

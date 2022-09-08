@@ -1,0 +1,20 @@
+# ignore dir
+venv/
+sphinx_venv/
+__pycache__/
+logs/
+.idea/
+.git/
+.DS_Store
+
+
+
+# ignore *.pyc, *.pyi
+*.pyc
+*.pyi
+
+# ignore logger file
+*.log
+
+# ignore html
+*.html

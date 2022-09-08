@@ -1,0 +1,25 @@
+[develop]
+server = "10.10.100.10"
+username = "root"
+password = "cljslrl0620"
+port = 22
+
+zstack_cli = "/usr/bin/zstack-cli"
+zstack_ctl = "/usr/bin/zstack-ctl"
+
+accountName = "admin"
+accountPassword = "password"
+
+
+
+
+[release]
+server = "10.10.100.13"
+username = "root"
+password = "cljslrl0620"
+port = 22
+
+
+[connection]
+timeout = 30
+socket_timeout = 30

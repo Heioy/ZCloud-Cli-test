@@ -649,11 +649,214 @@ class Instances(ZStackClient):
 
         return response['stdout']
 
+    def get_interdependent_l3_network_images(self, zoneUuid: str, l3NetworkUuids: str = None, imageUuid: str = None) -> Union[Dict, str]:
+        """
+        Get Interdependent L3 Networks Images
+        :param zoneUuid: 区域uuid。必须指定，以确定三层网络和镜像依赖关系。
+        :param l3NetworkUuids: 三层网络的uuid列表
+        :param imageUuid: 镜像uuid
+        """
+        self.logger.info("获取镜像和三层网络的相互依赖...")
+        if not zoneUuid:
+            raise ParameterIsNoneError(zoneUuid=zoneUuid)
 
+        command = f"{self.zstack_cli} {ZStack_Get_Interdependent_L3Network_Images.format(zoneUuid=zoneUuid)}"
 
+        if l3NetworkUuids:
+            command = f"{command} l3NetworkUuids={l3NetworkUuids}"
+        if imageUuid:
+            command = f"{command} imageUuid={imageUuid}"
 
+        response = self.client.run_command(command)
 
+        return response['stdout']
 
+    def set_vm_sshkey(self, uuid: str, SshKey: str) -> Union[Dict, str]:
+        """
+        Set Vm SshKey
+        :param uuid: 云主机的uuid
+        :param SshKey:
+        """
+        self.logger.info("设置云主机SSH Key...")
+        if not uuid or not SshKey:
+            raise ParameterIsNoneError(uuid=uuid, SshKey=SshKey)
+
+        command = f"{self.zstack_cli} {ZStack_Set_Vm_SshKey.format(sshKey=SshKey, uuid=uuid)}"
+        response = self.client.run_command(command)
+
+        return response['stdout']
+
+    def get_vm_sshkey(self, uuid: str) -> Union[Dict, str]:
+        """
+        Get Vm SshKey
+        :param uuid: 云主机的uuid
+        """
+        self.logger.info("获取云主机SSH Key...")
+        if not uuid:
+            raise ParameterIsNoneError(uuid=uuid)
+
+        command = f"{self.zstack_cli} {ZStack_Get_Vm_SshKey.format(uuid=uuid)}"
+        response = self.client.run_command(command)
+
+        return response['stdout']
+
+    def delete_vm_sshkey(self, uuid: str) -> Union[Dict, str]:
+        """
+        Delete Vm SshKey
+        :param uuid: 云主机的uuid
+        """
+        self.logger.info("删除云主机SSH Key...")
+        if not uuid:
+            raise ParameterIsNoneError(uuid=uuid)
+
+        command = f"{self.zstack_cli} {ZStack_Delete_Vm_SshKey.format(uuid=uuid)}"
+        response = self.client.run_command(command)
+
+        return response['stdout']
+
+    def change_vm_password(self, uuid: str, password: str, account: str = 'root') -> Union[Dict, str]:
+        """
+        变更云主机密码
+        :param uuid: 云主机的uuid
+        :param password:
+        :param account:
+        """
+        self.logger.info("更新云主机密码...")
+        if not uuid or not password:
+            raise ParameterIsNoneError(uuid=uuid, password=password)
+
+        command = f"{self.zstack_cli} {ZStack_Change_Vm_Password.format(uuid=uuid, account=account, password=password)}"
+        response = self.client.run_command(command)
+
+        return response['stdout']
+
+    def set_vm_console_password(self) -> Union[Dict, str]:
+        pass
+
+    def get_vm_console_password(self) -> Union[Dict, str]:
+        pass
+
+    def delete_vm_console_password(self) -> Union[Dict, str]:
+        pass
+
+    def get_vm_console_address(self) -> Union[Dict, str]:
+        pass
+
+    def set_vm_hostname(self, uuid: str, hostname: str) -> Union[Dict, str]:
+        """
+        设置云主机hostname
+        :param uuid: 云主机的uuid
+        :param hostname: hostname，必须 符合RFC1123标准
+        """
+        self.logger.info("设置云主机Hostname...")
+        if not uuid or not hostname:
+            raise ParameterIsNoneError(uuid=uuid, hostname=hostname)
+
+        command = f"{self.zstack_cli} {ZStack_Set_Vm_Hostname.format(uuid=uuid, hostname=hostname)}"
+        response = self.client.run_command(command)
+
+        return response['stdout']
+
+    def get_vm_hostname(self, uuid: str) -> Union[Dict, str]:
+        """
+        获取云主机hostname
+        :param uuid: 云主机的uuid
+        """
+        self.logger.info("获取云主机hostname...")
+
+        if not uuid:
+            raise ParameterIsNoneError(uuid=uuid)
+
+        command = f"{self.zstack_cli} {ZStack_Get_Vm_Hostname.format(uuid=uuid)}"
+        response = self.client.run_command(command)
+
+        return response['stdout']
+
+    def delete_vm_hostname(self, uuid: str) -> Union[Dict, str]:
+        """
+        删除云主机hostname
+        :param uuid: 云主机的uuid
+        """
+        self.logger.info("删除云主机hostname...")
+
+        if not uuid:
+            raise ParameterIsNoneError(uuid=uuid)
+
+        command = f"{self.zstack_cli} {ZStack_Delete_Vm_Hostname.format(uuid=uuid)}"
+        response = self.client.run_command(command)
+
+        return response['stdout']
+
+    def get_vm_boot_order(self, uuid: str) -> Union[Dict, str]:
+        """
+        获取一个云主机的启动设备列表
+        :param uuid: 云主机的uuid
+        """
+        self.logger.info("获取一个云主机的启动设备列表...")
+        if not uuid:
+            raise ParameterIsNoneError(uuid=uuid)
+
+        command = f"{self.zstack_cli} {ZStack_Get_Vm_Boot_Order.format(uuid=uuid)}"
+        response = self.client.run_command(command)
+
+        return response['stdout']
+
+    def set_vm_boot_order(self, uuid: str, bootOrder: str = 'HardDisk') -> Union[Dict, str]:
+        """
+        指定云主机的启动设备
+        :param uuid: 云主机的uuid
+        :param bootOrder: 启动设备。CdRom:光驱，HardDisk:云盘，Network:网络。若该字段不指定，则表示使用系统默认启动设备顺序(HardDisk, CdRom, Network)
+        """
+        if not uuid:
+            raise ParameterIsNoneError(uuid=uuid)
+
+        command = f"{self.zstack_cli} {ZStack_Set_Vm_Boot_Order.format(uuid=uuid, order=bootOrder)}"
+        response = self.client.run_command(command)
+
+        return response['stdout']
+
+    def get_candidate_zones_clusters_hosts_for_creating_vm(self, imageUuid: str, l3NetworkUuids: str, instanceOfferingUuid: str = None,
+                                                           dataDiskOfferingUuids: str = None, zoneUuid: str = None, clusterUuid: str = None,
+                                                           defaultL3NetworkUuid: str = None, cpuNum: str = None, memorySize: str = None,
+                                                           rootDiskOfferingUuid: str = None) -> Union[Dict, str]:
+        """
+        获取可以创建云主机参数的目的区域、集群、物理主机。可以通过指定云主机参数获得可以创建满足参数云主机的目的地
+        :param imageUuid: 镜像uuid
+        :param l3NetworkUuids: 三层网络列表
+        :param instanceOfferingUuid: 计算规格uuid
+        :param dataDiskOfferingUuids: 云盘规格列表
+        :param rootDiskOfferingUuid: 根云盘规格。仅在imageUuid指定的镜像是ISO时需要指定
+        :param zoneUuid: 区域uuid
+        :param clusterUuid: 集群uuid
+        :param defaultL3NetworkUuid: 默认三层网络uuid
+        :param cpuNum: CPU数目
+        :param memorySize: 内存大小, 单位Byte
+        """
+        self.logger.info("获取可以创建云主机参数的目的区域...")
+        if not imageUuid or not l3NetworkUuids:
+            raise ParameterIsNoneError(imageUuid=imageUuid, l3NetworkUuids=l3NetworkUuids)
+
+        command = f"{self.zstack_cli} {ZStack_Get_Candidate_Zones_Clusters_Hosts_For_Creating_Vm.format(iuuid=imageUuid, l3uuid=l3NetworkUuids)}"
+
+        if instanceOfferingUuid:
+            command = f"{command} instanceOfferingUuid={instanceOfferingUuid}"
+        if dataDiskOfferingUuids:
+            command = f"{command} dataDiskOfferingUuids={dataDiskOfferingUuids}"
+        if rootDiskOfferingUuid:
+            command = f"{command} rootDiskOfferingUuid={rootDiskOfferingUuid}"
+        if zoneUuid:
+            command = f"{command} zoneUuid={zoneUuid}"
+        if clusterUuid:
+            command = f"{command} clusterUuid={clusterUuid}"
+        if defaultL3NetworkUuid:
+            command = f"{command} defaultL3NetworkUuid={defaultL3NetworkUuid}"
+        if cpuNum:
+            command = f"{command} cpuNum={cpuNum}"
+        if memorySize:
+            command = f"{command} memorySize={memorySize}"
+
+        response = self.client.run_command(command)
+        return response['stdout']
 
 
 

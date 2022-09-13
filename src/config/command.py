@@ -66,6 +66,24 @@ ZStack_Get_Candidate_L3Network_For_Change_Vm_Nic_Network = " GetCandidateL3Netwo
 ZStack_Set_Nic_QoS = "SetNicQos uuid={uuid}"
 ZStack_Get_Nic_QoS = "GetNicQos uuid={uuid}"
 ZStack_Delete_Nic_QoS = "DeleteNicQos uuid={uuid} direction={dire}"
+ZStack_Get_Interdependent_L3Network_Images = " GetInterdependentL3NetworksImages zoneUuid={zoneUuid} "
+ZStack_Set_Vm_SshKey = "SetVmSshKey SshKey={sshKey} uuid={uuid}"
+ZStack_Get_Vm_SshKey = "GetVmSshKey uuid={uuid}"
+ZStack_Delete_Vm_SshKey = "DeleteVmSshKey uuid={uuid}"
+ZStack_Change_Vm_Password = "ChangeVmPassword uuid={uuid} account={account} password={password}"
+ZStack_Set_Vm_Console_Password = "SetVmConsolePassword uuid={uuid} consolePassword={password}"
+ZStack_Get_Vm_Console_Password = "GetVmConsolePassword uuid={uuid}"
+ZStack_Delete_Vm_Console_Password = "DeleteVmConsolePassword uuid={uuid}"
+ZStack_Get_Vm_Console_Address = "GetVmConsoleAddress uuid={uuid}"
+ZStack_Set_Vm_Hostname = "SetVmHostname uuid={uuid} hostname={hostname}"
+ZStack_Get_Vm_Hostname = "GetVmHostname uuid={uuid}"
+ZStack_Delete_Vm_Hostname = "DeleteVmHostname uuid={uuid}"
+ZStack_Get_Vm_Boot_Order = "GetVmBootOrder uuid={uuid}"
+ZStack_Set_Vm_Boot_Order = "SetVmBootOrder uuid={uuid} bootOrder={order}"
+ZStack_Get_Candidate_Zones_Clusters_Hosts_For_Creating_Vm = "GetCandidateZonesClustersHostsForCreatingVm imageUuid={iuuid} l3NetworkUuids={l3uuid}"
+
+
+
 
 # L2 Network
 ZStack_Get_L2_Network_Types = "GetL2NetworkTypes"

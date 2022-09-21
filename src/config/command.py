@@ -18,29 +18,16 @@ ZStack_Query_Network_Service = "QueryNetworkServiceProvider"
 ZStack_Query_L3_Network_Ref = "QueryNetworkServiceL3NetworkRef"
 
 # VM Pool
-## Create Vm
 ZStack_Create_Vm_Instance = "CreateVmInstance name={name} imageUuid={uuid} instanceOfferingUuid={ouuid} l3NetworkUuids={l3uuid}"
 ZStack_Create_Vm_Instance_From_Volume = "CreateVmInstanceFromVolume name={name} l3NetworkUuids={l3uuid} volumeUuid={vuuid}"
 ZStack_Create_Vm_Instance_From_VolumeSnapshot = "CreateVmInstanceFromVolumeSnapshot name={name} l3NetworkUuids={l3uuid} volumeSnapshotUuid={suuid}"
 ZStack_Create_Vm_Instance_From_VolumeSnapshotGroup = "CreateVmInstanceFromVolumeSnapshotGroup name={name} l3NetworkUuids={l3uuid} volumeSnapshotGroupUuid={sGuuid}"
-
-## Destory Vm
 ZStack_Destory_Vm_Instance = "DestroyVmInstance uuid={uuid}"
 ZStack_Expunge_Vm_Instance = "ExpungeVmInstance uuid={uuid}"
-
-## Recovery Vm
 ZStack_Recover_Vm_Instance = "RecoverVmInstance uuid={uuid}"
-
-## Query Vm
 ZStack_Query_Vm_Instance = "QueryVmInstance"
-
-## Start Vm
 ZStack_Start_Vm_Instance = "StartVmInstance uuid={uuid}"
-
-## Stop Vm
 ZStack_Stop_Vm_Instance = "StopVmInstance uuid={uuid}"
-
-## Reboot Vm
 ZStack_Reboot_Vm_Instance = "RebootVmInstance uuid={uuid}"
 ZStack_Pause_Vm_Instance = "PauseVmInstance uuid={uuid}"
 ZStack_Resume_Vm_Instance = "ResumeVmInstance uuid={uuid}"
@@ -90,6 +77,10 @@ ZStack_Get_Image_Candidates_For_Vm_To_Change = " GetImageCandidatesForVmToChange
 ZStack_Get_Vm_Device_Address = "GetVmDeviceAddress uuid={uuid} resourceTypes={restype}"
 ZStack_Get_Vms_Capabilities = "GetVmsCapabilities vmUuids={vuuid}"
 ZStack_Create_User_Tags = "CreateUserTag tag={tag} resourceType={restype} resourceUuid={resuuid}"
+
+# DataVolume
+ZStack_Create_DataVolume = "CreateDataVolume name={volname}"
+
 
 
 

@@ -153,7 +153,7 @@ class Instances(ZStackClient):
 
         response = self.client.run_command(command, timeout=self.create_vm_timeout)
 
-    def destory_vm_instance(self, uuid: str, deleteMode: str = None)  -> Union[Dict, str]:
+    def destory_vm_instance(self, uuid: str, deleteMode: str = None) -> Union[Dict, str]:
         """
         Remove Vm Instance From Pool
         :param uuid: 云主机的uuid
@@ -246,7 +246,7 @@ class Instances(ZStackClient):
         #     raise RemoteCommandError(command, response['stdout'])
         return response['stdout']
 
-    def stop_instance(self, uuid: str, _type: str = None, stopHA: bool = False)  -> Union[Dict, str]:
+    def stop_instance(self, uuid: str, _type: str = None, stopHA: bool = False) -> Union[Dict, str]:
         """
         Stoppped Vm Instance
         :param uuid: 云主机的uuid
@@ -312,7 +312,7 @@ class Instances(ZStackClient):
 
         return response['stdout']
 
-    def reimage_instance(self, vmInstanceUuid: str)  -> Union[Dict, str]:
+    def reimage_instance(self, vmInstanceUuid: str) -> Union[Dict, str]:
         """
         Initialize Root Vm Instance Image. Only valid for Created by ISO Image
         :param vmInstanceUuid: 云主机的uuid
@@ -326,7 +326,7 @@ class Instances(ZStackClient):
 
         return response['stdout']
 
-    def megiate_instance(self)  -> Union[Dict, str]:
+    def megiate_instance(self) -> Union[Dict, str]:
         """Migrate Vm Instance From Another Host Machine"""
         self.logger.info("正在迁移云主机中...")
         pass
@@ -338,7 +338,7 @@ class Instances(ZStackClient):
 
     def get_primary_storage_for_create_vm(self, imageUuid: str, l3NetworkUuids: str, dataDiskOfferingUuids: str = None,
                                           defaultL3NetworkUuid: str = None, rootDiskOfferingUuid: str = None,
-                                          zoneUuid: str = None, clusterUuid: str = None)  -> Union[Dict, str]:
+                                          zoneUuid: str = None, clusterUuid: str = None) -> Union[Dict, str]:
         """
         Get Candidate Primary Storages For Creating Vm
         :param imageUuid: 镜像UUID
@@ -368,7 +368,7 @@ class Instances(ZStackClient):
         response = self.client.run_command(command)
         return response['stdout']
 
-    def get_candidate_iso_for_attach_vm(self, vmInstanceUuid: str)  -> Union[Dict, str]:
+    def get_candidate_iso_for_attach_vm(self, vmInstanceUuid: str) -> Union[Dict, str]:
         """
         Get ISO List For Attaching Vm
         :param vmInstanceUuid: 云主机的uuid
@@ -382,7 +382,7 @@ class Instances(ZStackClient):
 
         return response['stdout']
 
-    def get_candidate_vm_for_attach_iso(self, isoUuid: str)  -> Union[Dict, str]:
+    def get_candidate_vm_for_attach_iso(self, isoUuid: str) -> Union[Dict, str]:
         """
         Get Candidate Vm For Attaching Iso
         :param isoUuid:
@@ -396,7 +396,7 @@ class Instances(ZStackClient):
 
         return response['stdout']
 
-    def attach_iso_to_instance(self, vmInstanceUuid: str, isoUuid: str)  -> Union[Dict, str]:
+    def attach_iso_to_instance(self, vmInstanceUuid: str, isoUuid: str) -> Union[Dict, str]:
         """
         Attached Iso Image To VmInstance which Status in Running or Stopped
         :param vmInstanceUuid:
@@ -411,7 +411,7 @@ class Instances(ZStackClient):
 
         return response['stdout']
 
-    def detach_iso_from_instance(self, vmInstanceUuid: str)  -> Union[Dict, str]:
+    def detach_iso_from_instance(self, vmInstanceUuid: str) -> Union[Dict, str]:
         """
         Detach ISO From Instance
         :param vmInstanceUuid: 云主机的uuid
@@ -425,7 +425,7 @@ class Instances(ZStackClient):
         response = self.client.run_command(command)
         return response['stdout']
 
-    def get_attached_datavolume(self, vmInstanceUuid: str)  -> Union[Dict, str]:
+    def get_attached_datavolume(self, vmInstanceUuid: str) -> Union[Dict, str]:
         """
         Get Vm Instance Attachable DataVolume
         :param vmInstanceUuid: 云主机的uuid
@@ -439,7 +439,7 @@ class Instances(ZStackClient):
 
         return response['stdout']
 
-    def get_attached_l3_network(self, vmInstanceUuid: str)  -> Union[Dict, str]:
+    def get_attached_l3_network(self, vmInstanceUuid: str) -> Union[Dict, str]:
         """
         Get Vm Instance Attachable L3 Network
         :param vmInstanceUuid:  云主机的uuid
@@ -453,7 +453,7 @@ class Instances(ZStackClient):
 
         return response['stdout']
 
-    def attach_l3_to_instance(self, vmInstanceUuid: str, l3NetworkUuid: str, driverType: str = None, staticIp: str = None)  -> Union[Dict, str]:
+    def attach_l3_to_instance(self, vmInstanceUuid: str, l3NetworkUuid: str, driverType: str = None, staticIp: str = None) -> Union[Dict, str]:
         """
         Attach L3 Network To Vm Instance which state in Running or Stopped
         :param vmInstanceUuid: 云主机的uuid
@@ -475,7 +475,7 @@ class Instances(ZStackClient):
 
         return response['stdout']
 
-    def detach_l3_from_instance(self, vmNicUuid: str)  -> Union[Dict, str]:
+    def detach_l3_from_instance(self, vmNicUuid: str) -> Union[Dict, str]:
         """
         Detach L3 Network From Vm Instance
         :param vmNicUuid: 云主机网卡uuid ，该网卡所在网络会从云主机卸载掉
@@ -489,7 +489,7 @@ class Instances(ZStackClient):
 
         return response['stdout']
 
-    def create_nic(self, l3NetworkUuid: str, resourceUuid: str = None, ip: str = None)  -> Union[Dict, str]:
+    def create_nic(self, l3NetworkUuid: str, resourceUuid: str = None, ip: str = None) -> Union[Dict, str]:
         """
         Create Vm Nic
         :param l3NetworkUuid: 三层网络UUID
@@ -510,7 +510,7 @@ class Instances(ZStackClient):
 
         return response['stdout']
 
-    def attach_nic_to_instance(self, vmNicUuid: str, vmInstanceUuid: str)  -> Union[Dict, str]:
+    def attach_nic_to_instance(self, vmNicUuid: str, vmInstanceUuid: str) -> Union[Dict, str]:
         """
         Attach Vm Nic To Vm @todo 4.0.0-version
         :param vmNicUuid: 云主机网卡UUID
@@ -525,7 +525,7 @@ class Instances(ZStackClient):
 
         return response['stdout']
 
-    def delete_nic(self, l3NetworkUuid: str)  -> Union[Dict, str]:
+    def delete_nic(self, l3NetworkUuid: str) -> Union[Dict, str]:
         """
         Delete Vm Nic @todo 4.0.0-version
         :param l3NetworkUuid: 资源的UUID，唯一标示该资源
@@ -539,7 +539,7 @@ class Instances(ZStackClient):
 
         return response['stdout']
 
-    def query_nic(self, gateway: str = None, guestIp: str = None)  -> Union[Dict, str]:
+    def query_nic(self, gateway: str = None, guestIp: str = None) -> Union[Dict, str]:
         """
         QueryVmNic
         :param gateway: 云主机网卡对应的网关
@@ -556,7 +556,7 @@ class Instances(ZStackClient):
         response = self.client.run_command(command)
         return response['stdout']
 
-    def get_nic_attached_network_service(self, vmNicUuid: str)  -> Union[Dict, str]:
+    def get_nic_attached_network_service(self, vmNicUuid: str) -> Union[Dict, str]:
         """
         GetVmNicAttachedNetworkService @todo 4.1.0-version
         :param vmNicUuid:
@@ -858,8 +858,164 @@ class Instances(ZStackClient):
         response = self.client.run_command(command)
         return response['stdout']
 
+    def get_vm_starting_candidate_clusters_hosts(self, uuid: str) -> Union[Dict, str]:
+        """
+        获取一个停止的云主机可以启动的集群、物理主机列表。用户可以通过该操作判断一个停止的云主机可以在哪些集群、物理主机上启动
+        :param uuid: 云主机的uuid
+        """
+        if not uuid:
+            raise ParameterIsNoneError(uuid=uuid)
+        command = f"{self.zstack_cli} {ZStack_Get_Vm_Starting_Candidate_Clusters_Hosts.format(uuid=uuid)}"
+        response = self.client.run_command(command)
 
+        return response['stdout']
 
+    def set_vm_static_ip(self, vmInstanceUuid: str, l3NetworkUuid: str, ip: str, ip6: str = None) -> Union[Dict, str]:
+        """
+        给云主机网卡指定IP，用户可以通过该操作控制ZStack Cloud分配给云主机网卡的IP。用户要确保指定的IP在指定三层网络，并且IP未被占用
+        :param vmInstanceUuid: 云主机uuid
+        :param l3NetworkUuid: 三层网络uuid
+        :param ip: 指定IP地址
+        :param ip6: 指定IPv6地址
+        """
+        if not vmInstanceUuid or not l3NetworkUuid or not ip:
+            raise ParameterIsNoneError(vmInstanceUuid=vmInstanceUuid, l3NetworkUuid=l3NetworkUuid, ip=ip)
+        command = f"{self.zstack_cli} {ZStack_Set_Vm_Static_IP.format(vuuid=vmInstanceUuid, l3uuid=l3NetworkUuid, ip=ip)}"
+
+        if ip6:
+            command = f"{command} ip6={ip6}"
+
+        response = self.client.run_command(command)
+        return response['stdout']
+
+    def delete_vm_static_ip(self, vmInstanceUuid: str, l3NetworkUuid: str, deleteMode: str = "Permissive") -> Union[Dict, str]:
+        """
+        删除云主机三层网络上指定的IP
+        :param vmInstanceUuid: 云主机uuid
+        :param l3NetworkUuid: 三层网络uuid
+        :param deleteMode: 删除模式. ["Permissive", "Enforcing"]
+        """
+        if not vmInstanceUuid or not l3NetworkUuid:
+            raise ParameterIsNoneError(vmInstanceUuid=vmInstanceUuid, l3NetworkUuid=l3NetworkUuid)
+
+        command = f"{self.zstack_cli} {ZStack_Delete_Static_IP.format(vuuid=vmInstanceUuid, l3uuid=l3NetworkUuid, deletemode=deleteMode)}"
+        response = self.client.run_command(command)
+
+        return response['stdout']
+
+    def update_instance(self, uuid: str, name: str = None, description: str =None, state: str = None, defaultL3NetworkUuid: str = None,
+                        platform: str = None, cpuNum: str = None, memorySize: str = None, guestOsType: str = None
+                        ) -> Union[Dict, str]:
+        """
+        更新云主机信息
+        :param uuid: 云主机uuid
+        :param name: 云主机名
+        :param description: 云主机详细描述
+        :param state: 云主机状态 ["Stopped", "Running"]
+                • 通常不应该直接更新云主机状态，否则会导致云平台对云主机状态发 生误判
+                • 该字段只应用于云主机真实状态和ZStack Cloud记录状态发生不一致，而ZStack Cloud同步机制已失效时(通 常意味着bug)
+                • 管理员完全理解使用该字段的后果
+        :param defaultL3NetworkUuid: 默认三层网络uuid
+        :param platform: 云主机平台类型  ["Linux", "Windows", "Windows Virtio", "Other", "Paravirtualization"]
+        :param cpuNum: 云主机CPU数量。需停止/启动云主机后生效
+                • 当全局设 置NUMA为true情况下创建的云主机，支持动态调整
+        :param memorySize: 云主机内存大小。需停止/启动云主机后生 效
+                • 全局设 置NUMA为true情况下创建的 云主机，支持动态调整
+        :param guestOsType: @todo version-4.1.0
+        """
+        if not uuid:
+            raise ParameterIsNoneError(uuid=uuid)
+
+        command = f"{self.zstack_cli} {ZSatck_Update_Vm_Instance.format(uuid=uuid)}"
+
+        if name:
+            command = f"{command} name={name}"
+        if description:
+            command = f"{command} description={description}"
+        if state:
+            command = f"{command} state={state}"
+        if defaultL3NetworkUuid:
+            command = f"{command} defaultL3NetworkUuid={defaultL3NetworkUuid}"
+        if platform:
+            command = f"{command} platform={platform}"
+        if cpuNum:
+            command = f"{command} cpuNum={cpuNum}"
+        if memorySize:
+            command = f"{command} memorySize={memorySize}"
+        if guestOsType:
+            command = f"{command} guestOsType={guestOsType}"
+
+        response = self.client.run_command(command)
+        return response['stdout']
+
+    def change_vm_image(self, vmInstanceUuid: str, imageUuid: str) -> Union[Dict, str]:
+        """
+        修改云主机根云盘
+        :param vmInstanceUuid: 云主机uuid
+        :param imageUuid: 镜像uuid
+        """
+        if not vmInstanceUuid or not imageUuid:
+            raise ParameterIsNoneError(vmInstanceUuid=vmInstanceUuid, imageUuid=imageUuid)
+
+        command = f"{self.zstack_cli} {ZStack_Change_Vm_Image.format(vuuid=vmInstanceUuid, iuuid=imageUuid)}"
+        response = self.client.run_command(command)
+
+        return response['stdout']
+
+    def getet_image_candidates_for_vm_to_change(self, vmInstanceUuid: str) -> Union[Dict, str]:
+        """
+        获取用于修改云主机根云盘的候选镜像列表
+        :param vmInstanceUuid: 云主机uuid
+        """
+        if not vmInstanceUuid:
+            raise ParameterIsNoneError(vmInstanceUuid=vmInstanceUuid)
+
+        command = f"{self.zstack_cli} {ZStack_Get_Image_Candidates_For_Vm_To_Change.format(vuuid=vmInstanceUuid)}"
+        response = self.client.run_command(command)
+
+        return response['stdout']
+
+    def get_vm_device_address(self, uuid: str, resourceTypes: str = "VolumeVO") -> Union[Dict, str]:
+        """
+        获取云主机内部与云平台资源对应的设备地址
+        :param uuid: 云主机UUID
+        :param resourceTypes: 资源类型 "VolumeVO"
+        """
+        if not uuid:
+            raise ParameterIsNoneError(uuid=uuid)
+
+        command = f"{self.zstack_cli} {ZStack_Get_Vm_Device_Address.format(uuid=uuid, restype=resourceTypes)}"
+        response = self.client.run_command(command)
+
+        return response['stdout']
+
+    def get_vms_capabilities(self, vmUuids: str) -> Union[Dict, str]:
+        """
+        批量获取云主机能力
+        :param vmUuids: 待查询的云主机uuid集合
+        """
+        if not vmUuids:
+            raise ParameterIsNoneError(vmUuids=vmUuids)
+
+        command = f"{self.zstack_cli} {ZStack_Get_Vms_Capabilities.format(vuuid=vmUuids)}"
+        response = self.client.run_command(command)
+
+        return response['stdout']
+
+    def create_user_tags(self, tag: str, resourceUuid: str, resourceType: str = "VmInstanceVO") -> Union[Dict, str]:
+        """
+        在云主机上创建用户标签
+        :param tag: 标签名称
+        :param resourceUuid:
+        :param resourceType:
+        """
+        if not tag or not resourceUuid:
+            raise ParameterIsNoneError(tag=tag, resourceUuid=resourceUuid)
+
+        command = f"{self.zstack_cli} {ZStack_Create_User_Tags.format(tag=tag, restype=resourceType, resuuid=resourceUuid)}"
+        response = self.client.run_command(command)
+
+        return response['stdout']
 
 # if __name__ == '__main__':
 #     cli = Instances()

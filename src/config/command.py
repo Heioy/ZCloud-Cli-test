@@ -81,7 +81,15 @@ ZStack_Delete_Vm_Hostname = "DeleteVmHostname uuid={uuid}"
 ZStack_Get_Vm_Boot_Order = "GetVmBootOrder uuid={uuid}"
 ZStack_Set_Vm_Boot_Order = "SetVmBootOrder uuid={uuid} bootOrder={order}"
 ZStack_Get_Candidate_Zones_Clusters_Hosts_For_Creating_Vm = "GetCandidateZonesClustersHostsForCreatingVm imageUuid={iuuid} l3NetworkUuids={l3uuid}"
-
+ZStack_Get_Vm_Starting_Candidate_Clusters_Hosts = "GetVmStartingCandidateClustersHosts uuid={uuid}"
+ZStack_Set_Vm_Static_IP = " SetVmStaticIp vmInstanceUuid={vuuid} l3NetworkUuid={l3uuid} ip={ip}"
+ZStack_Delete_Static_IP = " DeleteVmStaticIp vmInstanceUuid={vuuid} l3NetworkUuid={l3uuid} deleteMode={deletemode}"
+ZSatck_Update_Vm_Instance = "UpdateVmInstance uuid={uuid}"
+ZStack_Change_Vm_Image = "ChangeVmImage vmInstanceUuid={vuuid} imageUuid={iuuid}"
+ZStack_Get_Image_Candidates_For_Vm_To_Change = " GetImageCandidatesForVmToChange vmInstanceUuid={vuuid}"
+ZStack_Get_Vm_Device_Address = "GetVmDeviceAddress uuid={uuid} resourceTypes={restype}"
+ZStack_Get_Vms_Capabilities = "GetVmsCapabilities vmUuids={vuuid}"
+ZStack_Create_User_Tags = "CreateUserTag tag={tag} resourceType={restype} resourceUuid={resuuid}"
 
 
 

@@ -80,7 +80,22 @@ ZStack_Create_User_Tags = "CreateUserTag tag={tag} resourceType={restype} resour
 
 # DataVolume
 ZStack_Create_DataVolume = "CreateDataVolume name={volname}"
-
+ZStack_Delete_DataVolume = "DeleteDataVolume uuid={uuid}"
+ZStack_Expunge_DataVolume = "ExpungeDataVolume uuid={uuid}"
+ZStack_Recover_DataVolume = "RecoverDataVolume uuid={uuid}"
+ZStack_Change_Volume_State = "ChangeVolumeState uuid={uuid} stateEvent={state}"
+ZStack_Create_DataVolume_From_Volume_Templat = "CreateDataVolumeFromVolumeTemplate name={name} imageUuid={iuuid} primaryStorageUuid={stoUuid}"
+ZStack_Create_DataVolume_From_Volume_Snapshot = "CreateDataVolumeFromVolumeSnapshot volumeSnapshotUuid={snapUuid} name={name} primaryStorageUuid={stoUuid}"
+ZStack_Query_Volume = "QueryVolume"
+ZStack_Get_Volume_Format = "GetVolumeFormat"
+ZStack_Get_Volume_Capabilities = "GetVolumeCapabilities uuid={uuid}"
+ZStack_Sync_Volume_Size = "SyncVolumeSize uuid={uuid}"
+ZStack_Resize_RootVolume = "ResizeRootVolume uuid={uuid} size={size}"
+ZStack_Resize_DataVolume = "ResizeDataVolume uuid={uuid} size={size}"
+ZStack_Update_Volume = "UpdateVolume uuid={uuid}"
+ZStack_Set_Volume_QoS = "SetVolumeQos uuid={uuid} volumeBandwidth={volwid}"
+ZStack_Get_Volume_QoS = "GetVolumeQos uuid={uuid}"
+ZStack_Delete_Volume_QoS = "DeleteVolumeQos uuid={uuid}"
 
 
 

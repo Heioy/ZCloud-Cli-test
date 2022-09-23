@@ -4,7 +4,7 @@
 from logging import Logger
 from typing import Union, Dict
 from src.api.client import ZStackClient
-from src.config.command import *
+from src.config import commands
 from src.utils.errors import ParameterIsNoneError
 
 
@@ -32,7 +32,7 @@ class DataVolume(ZStackClient):
         if not name:
             raise ParameterIsNoneError(name=name)
 
-        command = f"{self.zstack_cli} {ZStack_Create_DataVolume.format(volname=name)}"
+        command = f"{self.zstack_cli} {commands.ZStack_Create_DataVolume.format(volname=name)}"
 
         if description:
             command = f"{command} description={description}"
@@ -57,7 +57,7 @@ class DataVolume(ZStackClient):
         if not uuid:
             raise ParameterIsNoneError(uuid=uuid)
 
-        command = f"{self.zstack_cli} {ZStack_Delete_DataVolume.format(uuid)}"
+        command = f"{self.zstack_cli} {commands.ZStack_Delete_DataVolume.format(uuid)}"
         if deleteMode:
             command = f"{command} deleteMode={deleteMode}"
         response = self.client.run_command(command)
@@ -71,7 +71,7 @@ class DataVolume(ZStackClient):
         """
         if not uuid:
             raise ParameterIsNoneError(uuid=uuid)
-        command = f"{self.zstack_cli} {ZStack_Expunge_DataVolume.format(uuid=uuid)}"
+        command = f"{self.zstack_cli} {commands.ZStack_Expunge_DataVolume.format(uuid=uuid)}"
         response = self.client.run_command(command)
 
         return response['stdout']
@@ -84,7 +84,7 @@ class DataVolume(ZStackClient):
         if not uuid:
             raise ParameterIsNoneError(uuid=uuid)
 
-        command = f"{self.zstack_cli} {ZStack_Recover_DataVolume.format(uuid=uuid)}"
+        command = f"{self.zstack_cli} {commands.ZStack_Recover_DataVolume.format(uuid=uuid)}"
         response = self.client.run_command(command)
 
         return response['stdout']
@@ -98,7 +98,7 @@ class DataVolume(ZStackClient):
         if not uuid or not stateEvent:
             raise ParameterIsNoneError(uuid=uuid, stateEvent=stateEvent)
 
-        command = f"{self.zstack_cli} {ZStack_Change_Volume_State.format(uuid=uuid, state=stateEvent)}"
+        command = f"{self.zstack_cli} {commands.ZStack_Change_Volume_State.format(uuid=uuid, state=stateEvent)}"
         response = self.client.run_command(command)
 
         return response['stdout']
@@ -118,7 +118,7 @@ class DataVolume(ZStackClient):
         if not imageUuid or not name or not primaryStorageUuid:
             raise ParameterIsNoneError(imageUuid=imageUuid, name=name, primaryStorageUuid=primaryStorageUuid)
 
-        command = f"{self.zstack_cli} {ZStack_Create_DataVolume_From_Volume_Templat.format(name=name, iuuid=imageUuid, stoUuid=primaryStorageUuid)}"
+        command = f"{self.zstack_cli} {commands.ZStack_Create_DataVolume_From_Volume_Templat.format(name=name, iuuid=imageUuid, stoUuid=primaryStorageUuid)}"
         response = self.client.run_command(command)
 
         return response['stdout']
@@ -136,7 +136,7 @@ class DataVolume(ZStackClient):
         if not volumeSnapshotUuid or not name or not primaryStorageUuid:
             raise ParameterIsNoneError(volumeSnapshotUuid=volumeSnapshotUuid, name=name, primaryStorageUuid=primaryStorageUuid)
 
-        command = f"{self.zstack_cli} {ZStack_Create_DataVolume_From_Volume_Snapshot.format(name=name, snapUuid=volumeSnapshotUuid, stoUuid=primaryStorageUuid)}"
+        command = f"{self.zstack_cli} {commands.ZStack_Create_DataVolume_From_Volume_Snapshot.format(name=name, snapUuid=volumeSnapshotUuid, stoUuid=primaryStorageUuid)}"
         response = self.client.run_command(command)
 
         return response['stdout']
@@ -151,7 +151,7 @@ class DataVolume(ZStackClient):
         :param snapshotUuid: 从该云盘创建出来的所有云盘快照uuid
         :param imageUuid: 从该云盘创建出来的镜像uuid
         """
-        command = f"{self.zstack_cli} {ZStack_Query_Volume}"
+        command = f"{self.zstack_cli} {commands.ZStack_Query_Volume}"
         if vmInstanceUuid:
             command = f"{command} vmInstanceUuid={vmInstanceUuid}"
         if primaryStorageUuid:
@@ -170,7 +170,7 @@ class DataVolume(ZStackClient):
         """
         获取云盘格式
         """
-        command = f"{self.zstack_cli} {ZStack_Get_Volume_Format}"
+        command = f"{self.zstack_cli} {commands.ZStack_Get_Volume_Format}"
         response = self.client.run_command(command)
         return response['stdout']
 
@@ -181,7 +181,7 @@ class DataVolume(ZStackClient):
         """
         if not uuid:
             raise ParameterIsNoneError(uuid=uuid)
-        command = f"{self.zstack_cli} {ZStack_Get_Volume_Capabilities.format(uuid=uuid)}"
+        command = f"{self.zstack_cli} {commands.ZStack_Get_Volume_Capabilities.format(uuid=uuid)}"
         response = self.client.run_command(command)
 
         return response['stdout']
@@ -193,7 +193,7 @@ class DataVolume(ZStackClient):
         """
         if not uuid:
             raise ParameterIsNoneError(uuid=uuid)
-        command = f"{self.zstack_cli} {ZStack_Sync_Volume_Size.format(uuid=uuid)}"
+        command = f"{self.zstack_cli} {commands.ZStack_Sync_Volume_Size.format(uuid=uuid)}"
         response = self.client.run_command(command)
 
         return response['stdout']
@@ -207,7 +207,7 @@ class DataVolume(ZStackClient):
         if not uuid or not size:
             raise ParameterIsNoneError(uuid=uuid, size=size)
 
-        command = f"{self.zstack_cli} {ZStack_Resize_RootVolume.format(uuid=uuid, size=size)}"
+        command = f"{self.zstack_cli} {commands.ZStack_Resize_RootVolume.format(uuid=uuid, size=size)}"
         response = self.client.run_command(command)
 
         return response['stdout']
@@ -221,7 +221,7 @@ class DataVolume(ZStackClient):
         if not uuid or not size:
             raise ParameterIsNoneError(uuid=uuid, size=size)
 
-        command = f"{self.zstack_cli} {ZStack_Resize_DataVolume.format(uuid=uuid, size=size)}"
+        command = f"{self.zstack_cli} {commands.ZStack_Resize_DataVolume.format(uuid=uuid, size=size)}"
         response = self.client.run_command(command)
 
         return response['stdout']
@@ -236,7 +236,7 @@ class DataVolume(ZStackClient):
         if not uuid:
             raise ParameterIsNoneError(uuid=uuid)
 
-        command = f"{self.zstack_cli} {ZStack_Update_Volume.format(uuid=uuid)}"
+        command = f"{self.zstack_cli} {commands.ZStack_Update_Volume.format(uuid=uuid)}"
         if name:
             command = f"{command} name={name}"
         if description:
@@ -255,7 +255,7 @@ class DataVolume(ZStackClient):
         if not uuid:
             raise ParameterIsNoneError(uuid=uuid)
 
-        command = f"{self.zstack_cli} {ZStack_Set_Volume_QoS.format(uuid=uuid, volwid=volumeBandwidth)}"
+        command = f"{self.zstack_cli} {commands.ZStack_Set_Volume_QoS.format(uuid=uuid, volwid=volumeBandwidth)}"
         if mode:
             command = f"{command} mode={mode}"
         response = self.client.run_command(command)
@@ -270,7 +270,7 @@ class DataVolume(ZStackClient):
         """
         if not uuid:
             raise ParameterIsNoneError(uuid=uuid)
-        command = f"{self.zstack_cli} {ZStack_Get_Volume_QoS.format(uuid=uuid)}"
+        command = f"{self.zstack_cli} {commands.ZStack_Get_Volume_QoS.format(uuid=uuid)}"
 
         if forceSync:
             command = f"{command} forceSync={forceSync}"
@@ -286,7 +286,155 @@ class DataVolume(ZStackClient):
         """
         if not uuid:
             raise ParameterIsNoneError(uuid=uuid)
-        command = f"{self.zstack_cli} {ZStack_Delete_Volume_QoS.format(uuid=uuid)}"
+        command = f"{self.zstack_cli} {commands.ZStack_Delete_Volume_QoS.format(uuid=uuid)}"
         response = self.client.run_command(command)
 
         return response['sdtout']
+
+    def get_datavolume_attachable_vm(self, volumeUuid: str) -> Union[Dict, str]:
+        """
+        获取云盘可被加载的云主机列表
+        :param volumeUuid: 云盘uuid
+        """
+        if not volumeUuid:
+            raise ParameterIsNoneError(volumeUuid=volumeUuid)
+
+        command = f"{self.zstack_cli} {commands.ZStack_Get_DataVolume_Attachable_Vm.format(voluuid=volumeUuid)}"
+        response = self.client.run_command(command)
+
+        return response['stdout']
+
+    def attach_datavolume_to_vm(self, vmInstanceUuid: str, volumeUuid: str) -> Union[Dict, str]:
+        """
+        挂载云盘到云主机上
+        :param vmInstanceUuid: 云主机uuid
+        :param volumeUuid: 云盘uuid
+        """
+        if not vmInstanceUuid or not volumeUuid:
+            raise ParameterIsNoneError(vmInstanceUuid=vmInstanceUuid, volumeUuid=volumeUuid)
+
+        command = f"{self.zstack_cli} {commands.ZStack_Attach_DataVolume_to_Vm.format(voluuid=volumeUuid, vuuid=vmInstanceUuid)}"
+        response = self.client.run_command(command)
+
+        return response['stdout']
+
+    def detach_datavolume_from_vm(self, uuid: str, vmUuid: str) -> Union[Dict, str]:
+        """
+        从云主机上卸载云盘
+        :param uuid: 云盘uuid
+        :param vmUuid: 云主机uuid
+        """
+        if not uuid or not vmUuid:
+            raise ParameterIsNoneError(uuid=uuid, vmUuid=vmUuid)
+
+        command = f"{self.zstack_cli} {commands.ZSTack_Detach_DataVolume_From_Vm.format(uuid=uuid, vuuid=vmUuid)}"
+        response = self.client.run_command(command)
+
+        return response['stdout']
+
+    def create_volume_snapshot(self, volumeUuid: str, name: str, description: str = None, resourceUuid: str = None) -> Union[Dict, str]:
+        """
+        从云盘创建快照
+        :param volumeUuid: 云盘uuid
+        :param name: 快照名称
+        :param description: 快照的详细描述
+        :param resourceUuid: 资源uuid
+        """
+        if not volumeUuid or not name:
+            raise ParameterIsNoneError(volumeUuid=volumeUuid, name=name)
+
+        command = f"{self.zstack_cli} {commands.ZStack_Create_Volume_Snapshot.format(voluuid=volumeUuid, name=name)}"
+        if description:
+            command = f"{command} description={description}"
+        if resourceUuid:
+            command = f"{command} resourceUuid={resourceUuid}"
+
+        response = self.client.run_command(command)
+        return response['stdout']
+
+    def query_volume_snapshot(self, **kwargs) -> Union[Dict, str]:
+        """
+        查询云盘快照
+        """
+        command = f"{self.zstack_cli} {commands.ZStack_Query_Volume_Snapshot}"
+        if kwargs:
+            for key, value in kwargs.items():
+                command += f"{key}={value}"
+        response = self.client.run_command(command)
+        return response['stdout']
+
+    def query_volume_snapshot_tree(self, **kwargs) -> Union[Dict, str]:
+        """
+        查询快照树
+        """
+        command = f"{self.zstack_cli} {commands.ZStack_Query_Volume_Snapshot_Tree}"
+        if kwargs:
+            for key, value in kwargs.items():
+                command += f"{key}={value}"
+        response = self.client.run_command(command)
+        return response['stdout']
+
+    def update_volume_snapshot(self, uuid: str, name: str = None, description: str = None) -> Union[Dict, str]:
+        """
+        更新云盘快照信息
+        :param uuid: 快照uuid
+        :param name: 快照的新名称
+        :param description: 快照的新详细描述
+        """
+        if not uuid:
+            raise ParameterIsNoneError(uuid=uuid)
+        command = f"{self.zstack_cli} {commands.ZStack_Update_Volume_Snapshot.format(uuid=uuid)}"
+        if name:
+            command = f"{command} name={name}"
+        if description:
+            command = f"{command} description={description}"
+        response = self.client.run_command(command)
+        return response['stdout']
+
+    def delete_volume_snapshot(self, uuid: str, deleteMode: str) -> Union[Dict, str]:
+        """
+        删除云盘快照
+        :param uuid: 快照uuid
+        :param deleteMode: 删除模式 ["Permissive", "Enforcing"]
+        """
+        if not uuid or not deleteMode:
+            raise ParameterIsNoneError(uuid=uuid, deleteMode=deleteMode)
+        command = f"{self.zstack_cli} {commands.ZStack_Delete_Volume_Snapshot.format(uuid=uuid, deletemode=deleteMode)}"
+        response = self.client.run_command(command)
+        return response['stdout']
+
+    def restore_volume_from_snapshot(self, uuid: str) -> Union[Dict, str]:
+        """
+        将云盘回滚至指定快照
+        :param uuid: 快照uuid
+        """
+        if not uuid:
+            raise ParameterIsNoneError(uuid=uuid)
+        command = f"{self.zstack_cli} {commands.ZStack_Revert_Volume_From_Snapshot.format(uuid=uuid)}"
+        response = self.client.run_command(command)
+
+        return response['stdout']
+
+    def get_volume_snapshot_size(self, uuid: str) -> Union[Dict, str]:
+        """
+        获取快照容量
+        :param uuid: 快照UUID
+        """
+        if not uuid:
+            raise ParameterIsNoneError(uuid=uuid)
+        command = f"{self.zstack_cli} {commands.ZStack_Get_Volume_Snapshot_Size.format(uuid=uuid)}"
+        response = self.client.run_command(command)
+
+        return response['stdout']
+
+    def shrink_volume_snapshot(self, uuid: str) -> Union[Dict, str]:
+        """
+        快照瘦身
+        :param uuid: 资源的UUID，唯一标示该资源
+        """
+        if not uuid:
+            raise ParameterIsNoneError(uuid=uuid)
+        command = f"{self.zstack_cli} {commands.ZStack_Shrink_Volume_Snaspshot.format(uuid=uuid)}"
+        response = self.client.run_command(command)
+
+        return response['stdout']

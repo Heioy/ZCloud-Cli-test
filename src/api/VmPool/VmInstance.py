@@ -4,7 +4,7 @@
 from logging import Logger
 from typing import Union, Dict
 from src.api.client import ZStackClient
-from src.config.command import *
+from src.config import commands
 from src.utils.errors import ParameterIsNoneError
 
 """云主机资源类"""
@@ -40,7 +40,7 @@ class Instances(ZStackClient):
         else:
             defaultL3NetworkUuid = None
 
-        command = f"{self.zstack_cli} {ZStack_Create_Vm_Instance.format(name=vmName, uuid=imageUuid, ouuid=instanceOfferingUuid, l3uuid=l3NetworkUuids)}"
+        command = f"{self.zstack_cli} {commands.ZStack_Create_Vm_Instance.format(name=vmName, uuid=imageUuid, ouuid=instanceOfferingUuid, l3uuid=l3NetworkUuids)}"
 
         if defaultL3NetworkUuid:
             command = f"{command} defaultL3NetworkUuid={defaultL3NetworkUuid}"
@@ -67,7 +67,7 @@ class Instances(ZStackClient):
         self.logger.info("从云盘创建云主机...")
         if not vmName or not l3NetworkUuids or not volumeUuid:
             raise ParameterIsNoneError(vmName=vmName, l3NetworkUuids=l3NetworkUuids, volumeUuid=volumeUuid)
-        command = f"{self.zstack_cli} {ZStack_Create_Vm_Instance_From_Volume.format(name=vmName, l3uuid=l3NetworkUuids, vuuid=volumeUuid)}"
+        command = f"{self.zstack_cli} {commands.ZStack_Create_Vm_Instance_From_Volume.format(name=vmName, l3uuid=l3NetworkUuids, vuuid=volumeUuid)}"
 
         if instanceOfferingUuid:
             command = f"{command} instanceOfferingUuid={instanceOfferingUuid}"
@@ -82,8 +82,8 @@ class Instances(ZStackClient):
         return response['stdout']
 
     def create_vm_instance_from_volume_Snapshot(self, vmName: str, l3NetworkUuids: str, volumeSnapshotUuid: str,
-                                               instanceOfferingUuid: str = None, type: str = None, primaryStorageVolume: str = None,
-                                               defaultL3NetworkUuid: str = None, strategy: str = None) -> Union[Dict, str]:
+        instanceOfferingUuid: str = None, type: str = None, primaryStorageVolume: str = None,
+        defaultL3NetworkUuid: str = None, strategy: str = None) -> Union[Dict, str]:
         """
         Create Vm Instnace From Volume Snapshot
         :param vmName: 资源名称
@@ -99,7 +99,7 @@ class Instances(ZStackClient):
         if not vmName or not l3NetworkUuids or not volumeSnapshotUuid:
             raise ParameterIsNoneError(vmName=vmName, l3NetworkUuids=l3NetworkUuids, volumeSnapshotUuid=volumeSnapshotUuid)
 
-        command = f"{self.zstack_cli} {ZStack_Create_Vm_Instance_From_VolumeSnapshot.format(name=vmName, l3uuid=l3NetworkUuids, suuid=volumeSnapshotUuid)}"
+        command = f"{self.zstack_cli} {commands.ZStack_Create_Vm_Instance_From_VolumeSnapshot.format(name=vmName, l3uuid=l3NetworkUuids, suuid=volumeSnapshotUuid)}"
 
         if instanceOfferingUuid:
             command = f"{command} instanceOfferingUuid={instanceOfferingUuid}"
@@ -135,7 +135,7 @@ class Instances(ZStackClient):
         if not vmName or not l3NetworkUuids or not volumeSnapshotGroupUuid:
             raise ParameterIsNoneError(vmName=vmName, l3NetworkUuids=l3NetworkUuids, volumeSnapshotGroupUuid=volumeSnapshotGroupUuid)
 
-        command = f"{self.zstack_cli} {ZStack_Create_Vm_Instance_From_VolumeSnapshotGroup.format(name=vmName, l3uuid=l3NetworkUuids, sGuuid=volumeSnapshotGroupUuid)}"
+        command = f"{self.zstack_cli} {commands.ZStack_Create_Vm_Instance_From_VolumeSnapshotGroup.format(name=vmName, l3uuid=l3NetworkUuids, sGuuid=volumeSnapshotGroupUuid)}"
 
         if instanceOfferingUuid:
             command = f"{command} instanceOfferingUuid={instanceOfferingUuid}"
@@ -151,6 +151,7 @@ class Instances(ZStackClient):
             command = f"{command} systemTags={systemTags}"
 
         response = self.client.run_command(command, timeout=self.create_vm_timeout)
+        return response['stdout']
 
     def destory_vm_instance(self, uuid: str, deleteMode: str = None) -> Union[Dict, str]:
         """
@@ -162,7 +163,7 @@ class Instances(ZStackClient):
         if not uuid:
             raise ParameterIsNoneError(uuid=uuid)
 
-        command = f"{self.zstack_cli} {ZStack_Destory_Vm_Instance.format(uuid=uuid)}"
+        command = f"{self.zstack_cli} {commands.ZStack_Destory_Vm_Instance.format(uuid=uuid)}"
 
         if deleteMode:
             command = f"{command} deleteMode={deleteMode}"
@@ -179,9 +180,10 @@ class Instances(ZStackClient):
         if not uuid:
             raise ParameterIsNoneError(uuid=uuid)
 
-        command = f"{self.zstack_cli} {ZStack_Recover_Vm_Instance.format(uuid=uuid)}"
+        command = f"{self.zstack_cli} {commands.ZStack_Recover_Vm_Instance.format(uuid=uuid)}"
 
         response = self.client.run_command(command)
+        return response['stdout']
 
     def expunge_Vm_Instance(self, uuid: str) -> Union[Dict, str]:
         """
@@ -192,9 +194,10 @@ class Instances(ZStackClient):
         if not uuid:
             raise ParameterIsNoneError(uuid=uuid)
 
-        command = f"{self.zstack_cli} {ZStack_Expunge_Vm_Instance.format(uuid=uuid)}"
+        command = f"{self.zstack_cli} {commands.ZStack_Expunge_Vm_Instance.format(uuid=uuid)}"
 
         response = self.client.run_command(command)
+        return response['stdout']
 
     def query_vm_instance(self, uuid: str = None, state: str = None, vmName: str = None, vmNicIp: str = None) -> Union[Dict, str]:
         """
@@ -205,7 +208,7 @@ class Instances(ZStackClient):
         :param vmNicIp: 虚拟机使用的l3层网络ip
         """
         self.logger.info("正在查询云主机...")
-        command = f"{self.zstack_cli} {ZStack_Query_Vm_Instance}"
+        command = f"{self.zstack_cli} {commands.ZStack_Query_Vm_Instance}"
 
         if uuid:
             command = f"{command} uuid={uuid}"
@@ -232,7 +235,7 @@ class Instances(ZStackClient):
         if not uuid:
             raise ParameterIsNoneError(uuid=uuid)
 
-        command = f"{self.zstack_cli} {ZStack_Start_Vm_Instance.format(uuid=uuid)}"
+        command = f"{self.zstack_cli} {commands.ZStack_Start_Vm_Instance.format(uuid=uuid)}"
 
         if clusterUuid:
             command = f"{command} clusterUuid={clusterUuid}"
@@ -256,7 +259,7 @@ class Instances(ZStackClient):
         if not uuid:
             raise ParameterIsNoneError(uuid=uuid)
 
-        command = f"{self.zstack_cli} {ZStack_Stop_Vm_Instance.format(uuid=uuid)}"
+        command = f"{self.zstack_cli} {commands.ZStack_Stop_Vm_Instance.format(uuid=uuid)}"
 
         if _type not in ['grace', 'cold']:
             raise ValueError(f"参数<type: {_type}>传入的值不合法!")
@@ -278,7 +281,7 @@ class Instances(ZStackClient):
         if not uuid:
             raise ParameterIsNoneError(uuid=uuid)
 
-        command = f"{self.zstack_cli} {ZStack_Reboot_Vm_Instance.format(uuid=uuid)}"
+        command = f"{self.zstack_cli} {commands.ZStack_Reboot_Vm_Instance.format(uuid=uuid)}"
 
         response = self.client.run_command(command)
         return response['stdout']
@@ -292,7 +295,7 @@ class Instances(ZStackClient):
         if not uuid:
             raise ParameterIsNoneError(uuid=uuid)
 
-        command = f"{self.zstack_cli} {ZStack_Pause_Vm_Instance.format(uuid=uuid)}"
+        command = f"{self.zstack_cli} {commands.ZStack_Pause_Vm_Instance.format(uuid=uuid)}"
         response = self.client.run_command(command)
 
         return response['stdout']
@@ -306,7 +309,7 @@ class Instances(ZStackClient):
         if not uuid:
             raise ParameterIsNoneError(uuid=uuid)
 
-        command = f"{self.zstack_cli} {ZStack_Resume_Vm_Instance.format(uuid=uuid)}"
+        command = f"{self.zstack_cli} {commands.ZStack_Resume_Vm_Instance.format(uuid=uuid)}"
         response = self.client.run_command(command)
 
         return response['stdout']
@@ -320,7 +323,7 @@ class Instances(ZStackClient):
         if not vmInstanceUuid:
             raise ParameterIsNoneError(vmInstanceUuid=vmInstanceUuid)
 
-        command = f"{self.zstack_cli} {ZStack_Reimage_Vm_Instance.format(vuuid=vmInstanceUuid)}"
+        command = f"{self.zstack_cli} {commands.ZStack_Reimage_Vm_Instance.format(vuuid=vmInstanceUuid)}"
         response = self.client.run_command(command)
 
         return response['stdout']
@@ -352,7 +355,7 @@ class Instances(ZStackClient):
         if not imageUuid or not l3NetworkUuids:
             raise ParameterIsNoneError(imageUuid=imageUuid, l3NetworkUuids=l3NetworkUuids)
 
-        command = f"{self.zstack_cli} {ZStack_Get_Primary_Storage_For_Create_Vm.format(l3uuid=l3NetworkUuids, iuuid=imageUuid)}"
+        command = f"{self.zstack_cli} {commands.ZStack_Get_Primary_Storage_For_Create_Vm.format(l3uuid=l3NetworkUuids, iuuid=imageUuid)}"
         if dataDiskOfferingUuids:
             command = f"{command} dataDiskOfferingUuids={dataDiskOfferingUuids}"
         if defaultL3NetworkUuid:
@@ -376,7 +379,7 @@ class Instances(ZStackClient):
         if not vmInstanceUuid:
             raise ParameterIsNoneError(vmInstanceUuid=vmInstanceUuid)
 
-        command = f"{self.zstack_cli} {ZStack_Get_Candidate_Iso_For_Attach_Vm.format(vuuid=vmInstanceUuid)}"
+        command = f"{self.zstack_cli} {commands.ZStack_Get_Candidate_Iso_For_Attach_Vm.format(vuuid=vmInstanceUuid)}"
         response = self.client.run_command(command)
 
         return response['stdout']
@@ -390,7 +393,7 @@ class Instances(ZStackClient):
         if not isoUuid:
             raise ParameterIsNoneError(isoUuid=isoUuid)
 
-        command = f"{self.zstack_cli} {ZStack_Get_Candidate_Vm_For_Attach_Iso.format(isouid=isoUuid)}"
+        command = f"{self.zstack_cli} {commands.ZStack_Get_Candidate_Vm_For_Attach_Iso.format(isouid=isoUuid)}"
         response = self.client.run_command(command)
 
         return response['stdout']
@@ -419,7 +422,7 @@ class Instances(ZStackClient):
         if not vmInstanceUuid:
             raise ParameterIsNoneError(vmInstanceUuid=vmInstanceUuid)
 
-        command = f"{self.zstack_cli} {ZStack_Detach_Iso_From_Instance.format(vuuid=vmInstanceUuid)}"
+        command = f"{self.zstack_cli} {commands.ZStack_Detach_Iso_From_Instance.format(vuuid=vmInstanceUuid)}"
 
         response = self.client.run_command(command)
         return response['stdout']
@@ -433,7 +436,7 @@ class Instances(ZStackClient):
         if not vmInstanceUuid:
             raise ParameterIsNoneError(vmInstanceUuid=vmInstanceUuid)
 
-        command = f"{self.zstack_cli} {ZStack_Get_Attached_DataVolume.format(vuuid=vmInstanceUuid)}"
+        command = f"{self.zstack_cli} {commands.ZStack_Get_Attached_DataVolume.format(vuuid=vmInstanceUuid)}"
         response = self.client.run_command(command)
 
         return response['stdout']
@@ -447,7 +450,7 @@ class Instances(ZStackClient):
         if not vmInstanceUuid:
             raise ParameterIsNoneError(vmInstanceUuid=vmInstanceUuid)
 
-        command = f"{self.zstack_cli} {ZStack_Get_Attached_L3_Network.format(vuuid=vmInstanceUuid)}"
+        command = f"{self.zstack_cli} {commands.ZStack_Get_Attached_L3_Network.format(vuuid=vmInstanceUuid)}"
         response = self.client.run_command(command)
 
         return response['stdout']
@@ -464,7 +467,7 @@ class Instances(ZStackClient):
         if not vmInstanceUuid or not l3NetworkUuid:
             raise ParameterIsNoneError(vmInstanceUuid=vmInstanceUuid, l3NetworkUuid=l3NetworkUuid)
 
-        command = f"{self.zstack_cli} {ZStack_Attach_L3_Network.format(vuuid=vmInstanceUuid, l3uuid=l3NetworkUuid)}"
+        command = f"{self.zstack_cli} {commands.ZStack_Attach_L3_Network.format(vuuid=vmInstanceUuid, l3uuid=l3NetworkUuid)}"
         if driverType:
             command = f"{command} driverType={driverType}"
         if staticIp:
@@ -483,7 +486,7 @@ class Instances(ZStackClient):
         if not vmNicUuid:
             raise ParameterIsNoneError(vmNicUuid=vmNicUuid)
 
-        command = f"{self.zstack_cli} {ZStack_Detach_L3_Network.format(vmNicuuid=vmNicUuid)}"
+        command = f"{self.zstack_cli} {commands.ZStack_Detach_L3_Network.format(vmNicuuid=vmNicUuid)}"
         response = self.client.run_command(command)
 
         return response['stdout']
@@ -499,7 +502,7 @@ class Instances(ZStackClient):
         if not l3NetworkUuid:
             raise ParameterIsNoneError(l3NetworkUuid=l3NetworkUuid)
 
-        command = f"{self.zstack_cli} {ZStack_Create_Vm_Nic.format(l3uuid=l3NetworkUuid)}"
+        command = f"{self.zstack_cli} {commands.ZStack_Create_Vm_Nic.format(l3uuid=l3NetworkUuid)}"
         if resourceUuid:
             command = f"{command} resourceUuid={resourceUuid}"
         if ip:
@@ -519,7 +522,7 @@ class Instances(ZStackClient):
         if not vmInstanceUuid or not vmNicUuid:
             raise ParameterIsNoneError(vmInstanceUuid=vmInstanceUuid, vmNicUuid=vmNicUuid)
 
-        command = f"{self.zstack_cli} {ZStack_Attach_Nic_To_Vm.format(vNicuuid=vmNicUuid, vuuid=vmInstanceUuid)}"
+        command = f"{self.zstack_cli} {commands.ZStack_Attach_Nic_To_Vm.format(vNicuuid=vmNicUuid, vuuid=vmInstanceUuid)}"
         response = self.client.run_command(command)
 
         return response['stdout']
@@ -533,7 +536,7 @@ class Instances(ZStackClient):
         if not l3NetworkUuid:
             raise ParameterIsNoneError(l3NetworkUuid=l3NetworkUuid)
 
-        command = f"{self.zstack_cli} {ZStack_Delete_Vm_Nic.format(l3uuid=l3NetworkUuid)}"
+        command = f"{self.zstack_cli} {commands.ZStack_Delete_Vm_Nic.format(l3uuid=l3NetworkUuid)}"
         response = self.client.run_command(command)
 
         return response['stdout']
@@ -545,7 +548,7 @@ class Instances(ZStackClient):
         :param guestIp: 云主机客户端的IP
         """
         self.logger.info("查询云主机的网卡...")
-        command = f"{self.zstack_cli} {ZStack_Query_Vm_Nic}"
+        command = f"{self.zstack_cli} {commands.ZStack_Query_Vm_Nic}"
 
         if gateway:
             command = f"{command} gateway={gateway}"
@@ -564,7 +567,7 @@ class Instances(ZStackClient):
         if not vmNicUuid:
             raise ParameterIsNoneError(vmNicUuid=vmNicUuid)
 
-        command = f"{self.zstack_cli} {ZStack_Get_Vm_Nic_Attached_Network_Service.format(vNicuuid=vmNicUuid)}"
+        command = f"{self.zstack_cli} {commands.ZStack_Get_Vm_Nic_Attached_Network_Service.format(vNicuuid=vmNicUuid)}"
         response = self.client.run_command(command)
 
         return response['stdout']
@@ -579,7 +582,7 @@ class Instances(ZStackClient):
         if not vmNicUuid or not destL3NetworkUuid:
             raise ParameterIsNoneError(vmNicUuid=vmNicUuid, destL3NetworkUuid=destL3NetworkUuid)
 
-        command = f"{self.zstack_cli} {ZStack_Change_Vm_Nic_Network.format(vNicuuid=vmNicUuid, l3uuid=destL3NetworkUuid)}"
+        command = f"{self.zstack_cli} {commands.ZStack_Change_Vm_Nic_Network.format(vNicuuid=vmNicUuid, l3uuid=destL3NetworkUuid)}"
         response = self.client.run_command(command)
 
         return response['stdout']
@@ -593,7 +596,7 @@ class Instances(ZStackClient):
         if not vmNicUuid:
             raise ParameterIsNoneError(vmNicUuid=vmNicUuid)
 
-        command = f"{self.zstack_cli} {ZStack_Get_Candidate_L3Network_For_Change_Vm_Nic_Network.format(vNicuuid=vmNicUuid)}"
+        command = f"{self.zstack_cli} {commands.ZStack_Get_Candidate_L3Network_For_Change_Vm_Nic_Network.format(vNicuuid=vmNicUuid)}"
         response = self.client.run_command(command)
 
         return response['stdout']
@@ -609,7 +612,7 @@ class Instances(ZStackClient):
         if not uuid:
             raise ParameterIsNoneError(uuid=uuid)
 
-        command = f"{self.zstack_cli} {ZStack_Set_Nic_QoS.format(uuid=uuid)}"
+        command = f"{self.zstack_cli} {commands.ZStack_Set_Nic_QoS.format(uuid=uuid)}"
         if outboundBandwidth:
             command = f"{command} outboundBandwidth={outboundBandwidth}"
         if inboundBandwidth:
@@ -628,7 +631,7 @@ class Instances(ZStackClient):
         if not uuid:
             raise ParameterIsNoneError(uuid=uuid)
 
-        command = f"{self.zstack_cli} {ZStack_Get_Nic_QoS.format(uuid=uuid)}"
+        command = f"{self.zstack_cli} {commands.ZStack_Get_Nic_QoS.format(uuid=uuid)}"
         response = self.client.run_command(command)
 
         return response['stdout']
@@ -643,7 +646,7 @@ class Instances(ZStackClient):
         if not uuid or not direction:
             raise ParameterIsNoneError(uuid=uuid, direction=direction)
 
-        command = f"{self.zstack_cli} {ZStack_Delete_Nic_QoS.format(uuid=uuid, dire=direction)}"
+        command = f"{self.zstack_cli} {commands.ZStack_Delete_Nic_QoS.format(uuid=uuid, dire=direction)}"
         response = self.client.run_command(command)
 
         return response['stdout']
@@ -659,7 +662,7 @@ class Instances(ZStackClient):
         if not zoneUuid:
             raise ParameterIsNoneError(zoneUuid=zoneUuid)
 
-        command = f"{self.zstack_cli} {ZStack_Get_Interdependent_L3Network_Images.format(zoneUuid=zoneUuid)}"
+        command = f"{self.zstack_cli} {commands.ZStack_Get_Interdependent_L3Network_Images.format(zoneUuid=zoneUuid)}"
 
         if l3NetworkUuids:
             command = f"{command} l3NetworkUuids={l3NetworkUuids}"
@@ -680,7 +683,7 @@ class Instances(ZStackClient):
         if not uuid or not SshKey:
             raise ParameterIsNoneError(uuid=uuid, SshKey=SshKey)
 
-        command = f"{self.zstack_cli} {ZStack_Set_Vm_SshKey.format(sshKey=SshKey, uuid=uuid)}"
+        command = f"{self.zstack_cli} {commands.ZStack_Set_Vm_SshKey.format(sshKey=SshKey, uuid=uuid)}"
         response = self.client.run_command(command)
 
         return response['stdout']
@@ -694,7 +697,7 @@ class Instances(ZStackClient):
         if not uuid:
             raise ParameterIsNoneError(uuid=uuid)
 
-        command = f"{self.zstack_cli} {ZStack_Get_Vm_SshKey.format(uuid=uuid)}"
+        command = f"{self.zstack_cli} {commands.ZStack_Get_Vm_SshKey.format(uuid=uuid)}"
         response = self.client.run_command(command)
 
         return response['stdout']
@@ -708,7 +711,7 @@ class Instances(ZStackClient):
         if not uuid:
             raise ParameterIsNoneError(uuid=uuid)
 
-        command = f"{self.zstack_cli} {ZStack_Delete_Vm_SshKey.format(uuid=uuid)}"
+        command = f"{self.zstack_cli} {commands.ZStack_Delete_Vm_SshKey.format(uuid=uuid)}"
         response = self.client.run_command(command)
 
         return response['stdout']
@@ -724,7 +727,7 @@ class Instances(ZStackClient):
         if not uuid or not password:
             raise ParameterIsNoneError(uuid=uuid, password=password)
 
-        command = f"{self.zstack_cli} {ZStack_Change_Vm_Password.format(uuid=uuid, account=account, password=password)}"
+        command = f"{self.zstack_cli} {commands.ZStack_Change_Vm_Password.format(uuid=uuid, account=account, password=password)}"
         response = self.client.run_command(command)
 
         return response['stdout']
@@ -751,7 +754,7 @@ class Instances(ZStackClient):
         if not uuid or not hostname:
             raise ParameterIsNoneError(uuid=uuid, hostname=hostname)
 
-        command = f"{self.zstack_cli} {ZStack_Set_Vm_Hostname.format(uuid=uuid, hostname=hostname)}"
+        command = f"{self.zstack_cli} {commands.ZStack_Set_Vm_Hostname.format(uuid=uuid, hostname=hostname)}"
         response = self.client.run_command(command)
 
         return response['stdout']
@@ -766,7 +769,7 @@ class Instances(ZStackClient):
         if not uuid:
             raise ParameterIsNoneError(uuid=uuid)
 
-        command = f"{self.zstack_cli} {ZStack_Get_Vm_Hostname.format(uuid=uuid)}"
+        command = f"{self.zstack_cli} {commands.ZStack_Get_Vm_Hostname.format(uuid=uuid)}"
         response = self.client.run_command(command)
 
         return response['stdout']
@@ -781,7 +784,7 @@ class Instances(ZStackClient):
         if not uuid:
             raise ParameterIsNoneError(uuid=uuid)
 
-        command = f"{self.zstack_cli} {ZStack_Delete_Vm_Hostname.format(uuid=uuid)}"
+        command = f"{self.zstack_cli} {commands.ZStack_Delete_Vm_Hostname.format(uuid=uuid)}"
         response = self.client.run_command(command)
 
         return response['stdout']
@@ -795,7 +798,7 @@ class Instances(ZStackClient):
         if not uuid:
             raise ParameterIsNoneError(uuid=uuid)
 
-        command = f"{self.zstack_cli} {ZStack_Get_Vm_Boot_Order.format(uuid=uuid)}"
+        command = f"{self.zstack_cli} {commands.ZStack_Get_Vm_Boot_Order.format(uuid=uuid)}"
         response = self.client.run_command(command)
 
         return response['stdout']
@@ -809,7 +812,7 @@ class Instances(ZStackClient):
         if not uuid:
             raise ParameterIsNoneError(uuid=uuid)
 
-        command = f"{self.zstack_cli} {ZStack_Set_Vm_Boot_Order.format(uuid=uuid, order=bootOrder)}"
+        command = f"{self.zstack_cli} {commands.ZStack_Set_Vm_Boot_Order.format(uuid=uuid, order=bootOrder)}"
         response = self.client.run_command(command)
 
         return response['stdout']
@@ -835,7 +838,7 @@ class Instances(ZStackClient):
         if not imageUuid or not l3NetworkUuids:
             raise ParameterIsNoneError(imageUuid=imageUuid, l3NetworkUuids=l3NetworkUuids)
 
-        command = f"{self.zstack_cli} {ZStack_Get_Candidate_Zones_Clusters_Hosts_For_Creating_Vm.format(iuuid=imageUuid, l3uuid=l3NetworkUuids)}"
+        command = f"{self.zstack_cli} {commands.ZStack_Get_Candidate_Zones_Clusters_Hosts_For_Creating_Vm.format(iuuid=imageUuid, l3uuid=l3NetworkUuids)}"
 
         if instanceOfferingUuid:
             command = f"{command} instanceOfferingUuid={instanceOfferingUuid}"
@@ -864,7 +867,7 @@ class Instances(ZStackClient):
         """
         if not uuid:
             raise ParameterIsNoneError(uuid=uuid)
-        command = f"{self.zstack_cli} {ZStack_Get_Vm_Starting_Candidate_Clusters_Hosts.format(uuid=uuid)}"
+        command = f"{self.zstack_cli} {commands.ZStack_Get_Vm_Starting_Candidate_Clusters_Hosts.format(uuid=uuid)}"
         response = self.client.run_command(command)
 
         return response['stdout']
@@ -879,7 +882,7 @@ class Instances(ZStackClient):
         """
         if not vmInstanceUuid or not l3NetworkUuid or not ip:
             raise ParameterIsNoneError(vmInstanceUuid=vmInstanceUuid, l3NetworkUuid=l3NetworkUuid, ip=ip)
-        command = f"{self.zstack_cli} {ZStack_Set_Vm_Static_IP.format(vuuid=vmInstanceUuid, l3uuid=l3NetworkUuid, ip=ip)}"
+        command = f"{self.zstack_cli} {commands.ZStack_Set_Vm_Static_IP.format(vuuid=vmInstanceUuid, l3uuid=l3NetworkUuid, ip=ip)}"
 
         if ip6:
             command = f"{command} ip6={ip6}"
@@ -897,7 +900,7 @@ class Instances(ZStackClient):
         if not vmInstanceUuid or not l3NetworkUuid:
             raise ParameterIsNoneError(vmInstanceUuid=vmInstanceUuid, l3NetworkUuid=l3NetworkUuid)
 
-        command = f"{self.zstack_cli} {ZStack_Delete_Static_IP.format(vuuid=vmInstanceUuid, l3uuid=l3NetworkUuid, deletemode=deleteMode)}"
+        command = f"{self.zstack_cli} {commands.ZStack_Delete_Static_IP.format(vuuid=vmInstanceUuid, l3uuid=l3NetworkUuid, deletemode=deleteMode)}"
         response = self.client.run_command(command)
 
         return response['stdout']
@@ -956,7 +959,7 @@ class Instances(ZStackClient):
         if not vmInstanceUuid or not imageUuid:
             raise ParameterIsNoneError(vmInstanceUuid=vmInstanceUuid, imageUuid=imageUuid)
 
-        command = f"{self.zstack_cli} {ZStack_Change_Vm_Image.format(vuuid=vmInstanceUuid, iuuid=imageUuid)}"
+        command = f"{self.zstack_cli} {commands.ZStack_Change_Vm_Image.format(vuuid=vmInstanceUuid, iuuid=imageUuid)}"
         response = self.client.run_command(command)
 
         return response['stdout']
@@ -969,7 +972,7 @@ class Instances(ZStackClient):
         if not vmInstanceUuid:
             raise ParameterIsNoneError(vmInstanceUuid=vmInstanceUuid)
 
-        command = f"{self.zstack_cli} {ZStack_Get_Image_Candidates_For_Vm_To_Change.format(vuuid=vmInstanceUuid)}"
+        command = f"{self.zstack_cli} {commands.ZStack_Get_Image_Candidates_For_Vm_To_Change.format(vuuid=vmInstanceUuid)}"
         response = self.client.run_command(command)
 
         return response['stdout']
@@ -983,7 +986,7 @@ class Instances(ZStackClient):
         if not uuid:
             raise ParameterIsNoneError(uuid=uuid)
 
-        command = f"{self.zstack_cli} {ZStack_Get_Vm_Device_Address.format(uuid=uuid, restype=resourceTypes)}"
+        command = f"{self.zstack_cli} {commands.ZStack_Get_Vm_Device_Address.format(uuid=uuid, restype=resourceTypes)}"
         response = self.client.run_command(command)
 
         return response['stdout']
@@ -996,7 +999,7 @@ class Instances(ZStackClient):
         if not vmUuids:
             raise ParameterIsNoneError(vmUuids=vmUuids)
 
-        command = f"{self.zstack_cli} {ZStack_Get_Vms_Capabilities.format(vuuid=vmUuids)}"
+        command = f"{self.zstack_cli} {commands.ZStack_Get_Vms_Capabilities.format(vuuid=vmUuids)}"
         response = self.client.run_command(command)
 
         return response['stdout']
@@ -1011,7 +1014,7 @@ class Instances(ZStackClient):
         if not tag or not resourceUuid:
             raise ParameterIsNoneError(tag=tag, resourceUuid=resourceUuid)
 
-        command = f"{self.zstack_cli} {ZStack_Create_User_Tags.format(tag=tag, restype=resourceType, resuuid=resourceUuid)}"
+        command = f"{self.zstack_cli} {commands.ZStack_Create_User_Tags.format(tag=tag, restype=resourceType, resuuid=resourceUuid)}"
         response = self.client.run_command(command)
 
         return response['stdout']

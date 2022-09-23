@@ -9,7 +9,7 @@ from src.utils.parser import (
     ParseController,
     ParseZStackClient
 )
-from src.config.command import *
+from src.config.commands import *
 from src.utils.errors import *
 
 
@@ -30,7 +30,7 @@ class ZStackClient(Base):
         # command = [self.zstack_cli, "LogInByAccount", "accountName=%s" % self.username, "password=%s" % self.password]
         command = f"{self.zstack_cli} {ZStack_Login_Account.format(username=self.accountName, password=self.accountPassword)}"
         response = self.client.run_command(command)
-        session = response['stdout']
+        # session = response['stdout']
 
         result = ParseController('parseLogin', response, ParseZStackClient).parse()
         try:

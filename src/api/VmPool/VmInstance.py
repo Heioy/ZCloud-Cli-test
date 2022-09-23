@@ -2,10 +2,10 @@
 # -*- coding:utf-8 -*- 
 
 from logging import Logger
-from typing import Union, Any, Dict, List
+from typing import Union, Dict
 from src.api.client import ZStackClient
 from src.config.command import *
-from src.utils.errors import ParameterIsNoneError, RemoteCommandError
+from src.utils.errors import ParameterIsNoneError
 
 """云主机资源类"""
 
@@ -116,10 +116,9 @@ class Instances(ZStackClient):
         return response['stdout']
 
     def create_vm_instance_from_volume_SnapshotGroup(self, vmName: str, l3NetworkUuids: str, volumeSnapshotGroupUuid: str,
-                                                     instanceOfferingUuid: str = None, type: str = None,
-                                                     primaryStorageUuidForRootVolume: str = None, defaultL3NetworkUuid: str = None,
-                                                     strategy: str = None, systemTags: str = None
-                                                    ) -> Union[Dict, str]:
+         instanceOfferingUuid: str = None, type: str = None, primaryStorageUuidForRootVolume: str = None,
+         defaultL3NetworkUuid: str = None, strategy: str = None, systemTags: str = None
+        ) -> Union[Dict, str]:
         """
         Create Vm Instance From Volume SnapshotGroup
         :param vmName: 资源名称
@@ -169,7 +168,7 @@ class Instances(ZStackClient):
             command = f"{command} deleteMode={deleteMode}"
 
         response = self.client.run_command(command)
-
+        return response['stdout']
 
     def recover_vm_instance(self, uuid: str) -> Union[Dict, str]:
         """
@@ -331,7 +330,7 @@ class Instances(ZStackClient):
         self.logger.info("正在迁移云主机中...")
         pass
 
-    def get_megiate_hosts(self)  -> Union[Dict, str]:
+    def get_megiate_hosts(self) -> Union[Dict, str]:
         """Getting Host List From could Megiate Candidate"""
         self.logger.info("获取可迁移的云主机的主机列表...")
         pass
@@ -903,7 +902,7 @@ class Instances(ZStackClient):
 
         return response['stdout']
 
-    def update_instance(self, uuid: str, name: str = None, description: str =None, state: str = None, defaultL3NetworkUuid: str = None,
+    def update_instance(self, uuid: str, name: str = None, description: str = None, state: str = None, defaultL3NetworkUuid: str = None,
                         platform: str = None, cpuNum: str = None, memorySize: str = None, guestOsType: str = None
                         ) -> Union[Dict, str]:
         """
@@ -1021,4 +1020,3 @@ class Instances(ZStackClient):
 #     cli = Instances()
 #     res = cli.query_vm_instance(uuid='f73ee1c3ad4f4a3dac96a66608332867')
 #     print(type(res))
-

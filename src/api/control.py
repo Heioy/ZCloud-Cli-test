@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding:utf-8 -*- 
 
-from typing import Any
 from src.api.base import Base
 from src.utils.parser import (
     ParseController,
@@ -44,7 +43,6 @@ class ZStackControl(Base):
             command = f"{self.zstack_ctl} {ZStack_Drop_Session} --account {account}"
         response = self.client.run_command(command)
         return ParseController('ParseDropSession', response, ParseZStackControl).parse()
-
 
 
 # if __name__ == '__main__':

@@ -3,10 +3,7 @@
 
 
 import json
-from pprint import pprint
 from logging import Logger
-from typing import Any, List, Dict
-from src.utils.ssh import Client
 from src.api.base import Base
 from src.utils.parser import (
     ParseController,
@@ -14,6 +11,7 @@ from src.utils.parser import (
 )
 from src.config.command import *
 from src.utils.errors import *
+
 
 class ZStackClient(Base):
 
@@ -23,9 +21,6 @@ class ZStackClient(Base):
         self.accountName = self.config['develop']['accountName']
         self.accountPassword = self.config['develop']['accountPassword']
         self.session: bool = False
-
-
-
 
         if not self.session:
             self.login()
@@ -70,12 +65,8 @@ class ZStackClient(Base):
         response = self.client.run_command(command)
         return response['stdout']
 
-
-
-
-
-if __name__ == '__main__':
-    cli = ZStackClient()
-    cli.query_zone()
+# if __name__ == '__main__':
+#     cli = ZStackClient()
+#     cli.query_zone()
 
 # print(os.path.dirname(os.getcwd()))

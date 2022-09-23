@@ -97,8 +97,6 @@ ZStack_Set_Volume_QoS = "SetVolumeQos uuid={uuid} volumeBandwidth={volwid}"
 ZStack_Get_Volume_QoS = "GetVolumeQos uuid={uuid}"
 ZStack_Delete_Volume_QoS = "DeleteVolumeQos uuid={uuid}"
 
-
-
 # L2 Network
 ZStack_Get_L2_Network_Types = "GetL2NetworkTypes"
 ZStack_Query_L2_Network = "QueryL2Network"
@@ -136,7 +134,7 @@ ZStack_Add_Dns_To_L3_Network = "AddDnsToL3Network dns={dns} l3NetworkUuid={uuid}
 ZStack_Remove_Dns_To_L3_Network = "RemoveDnsFromL3Network dns={dns} l3NetworkUuid={uuid}"
 ZStack_Remove_HostRouter_From_L3_Network = "RemoveHostRouteFromL3Network l3NetworkUuid={uuid}"
 ZSatck_Add_HostRouter_From_L3_Network = "AddHostRouteToL3Network l3NetworkUuid={uuid} nexthop={ip} prefix={prefix}"
-ZStack_Change_L3_Network_State = "ChangeL3NetworkState uuid={uuid} stateEvent={state}" # state [enable, disable]
+ZStack_Change_L3_Network_State = "ChangeL3NetworkState uuid={uuid} stateEvent={state}"      # state [enable, disable]
 ZStack_Detach_L3_Network_From_Vm = "DetachL3NetworkFromVm vmNicUuid={vNicuuid}"
 
 # Host
@@ -146,30 +144,3 @@ ZStack_Update_Host = "UpdateHost uuid={uuid}"
 ZStack_Delete_Host = "DeleteHost uuid={uuid}"
 ZStack_Get_Host_Task = "GetHostTask hostUuids={uuid}"
 ZStack_Get_Host_Networks_Facts = "GetHostNetworkFacts hostUuid={uuid}"
-
-
-
-
-# AddHostRouteToL3Network                       AddKVMHost
-# AddKVMHostFromConfigFile                      AddSimulatorHost
-# AddV2VConversionHost
-# AddXDragonHost                                BootstrapMiniHost
-# ChangeHostPassword                            ChangeHostState
-# ChangeV2VConversionHostState
-# CheckKVMHostConfigFile
-# DeleteV2VConversionHost                       DeleteVmHostname
-# GetCandidateMiniHosts
-# GetCandidateZonesClustersHostsForCreatingVm   GetHostAllocatorStrategies
-# GetHostIommuState                             GetHostIommuStatus
-#
-#                                    GetLocalStorageHostDiskCapacity
-# GetVmHostname                                 GetVmMigrationCandidateHosts
-# GetVmStartingCandidateClustersHosts
-# IdentifyHost                                  ListVMsFromKVMHost
-# LocalStorageGetVolumeMigratableHosts          PowerOffHost
-# QueryMiniStorageHostRef                       QuerySharedBlockGroupPrimaryStorageHostRef
-# QueryV2VConversionHost
-# RemoveHostRouteFromL3Network
-# SetVmHostname
-# UpdateHostIommuState                          UpdateKVMHost
-# UpdateV2VConversionHost

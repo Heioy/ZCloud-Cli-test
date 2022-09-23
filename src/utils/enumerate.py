@@ -4,4 +4,3 @@
 from enum import Enum
 
 Strategy = Enum("Strategy", ("InstantStart", "CreateStopped"))
-

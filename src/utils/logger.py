@@ -1,10 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding:utf-8 -*- 
 
-
-import os
 import logging
-from logging import handlers
 
 
 def get_logger(filename: str = None,

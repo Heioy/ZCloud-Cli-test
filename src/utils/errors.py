@@ -45,17 +45,18 @@ class ParameterIsNoneError(Exception):
 
 
 class RunCommandTimeoutError(Exception):
-    def __init__(self, command: Any, timeout: int, remote_ip: Any = None, local: bool = False):
+    def __init__(self, command: Any, timeout: int, remote_ip: Any = None, local: bool = False, **kwargs):
         self.command = command
         self.local = local
         self.remote_ip = remote_ip
         self.timeout = timeout
+        self.kwargs = kwargs
 
     def __str__(self):
         if self.local:
-            return f"本地执行命令<{self.command}>超时{self.timeout}s"
+            return f"本地执行命令<{self.command}>超时{self.timeout}s. 错误信息: {self.kwargs}"
         else:
-            return f"远端执行命令<{self.remote_ip} {self.command}>超时{self.timeout}s"
+            return f"远端执行命令<{self.remote_ip} {self.command}>超时{self.timeout}s. 错误信息: {self.kwargs}"
 
 
 class SSHConnectingError(Exception):

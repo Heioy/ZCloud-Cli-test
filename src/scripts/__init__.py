@@ -19,6 +19,7 @@ logCount = config['TestCase']['loggerCount']
 log_dir = os.path.join(base_path, logDirName)
 date = datetime.datetime.now().strftime('%y%m%d%H%M%S')
 
+
 def create_log_dir():
     if not os.path.exists(log_dir):
         print(f"{log_dir} not exist, Create it!")
@@ -39,6 +40,7 @@ def remove_logs():
                 shutil.rmtree(dir_list[0])
             except Exception:
                 pass
+
 
 create_log_dir()
 remove_logs()

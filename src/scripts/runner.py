@@ -4,7 +4,6 @@
 import os
 import sys
 import shutil
-import datetime
 import unittest
 from src.utils.readFile import read_toml
 from typing import List
@@ -77,4 +76,3 @@ if __name__ == '__main__':
     create_log_dir()
     modules = ["instancePool"]
     runall(modules)
-

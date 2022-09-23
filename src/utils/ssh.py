@@ -86,7 +86,7 @@ class Client(object):
                       timeout: int = 30,
                       retry_count: int = 1
                       ) -> Dict[str, str]:
-        _stdout, _stderr = None, None
+        stdout, stderr = None, None
         if not isinstance(command, list):
             raise ParameterError(exc_val=command, act_type=list)
 
@@ -115,7 +115,7 @@ class Client(object):
                 }
 
         except TimeoutError as rcte:
-            raise RunCommandTimeoutError(command=command, local=True, timeout=timeout)
+            raise RunCommandTimeoutError(command=command, local=True, timeout=timeout, error=repr(rcte))
 
     def _get_cli(self) -> paramiko.SSHClient:
         timeout: float = 20
@@ -133,7 +133,7 @@ class Client(object):
         except paramiko.ssh_exception.SSHException:
             raise SSHConnectingError(f"与远程服务器 {hostname} 建立SSH会话失败. ")
 
-    def run_command(self, command: str, timeout: int =30, retry_count: int = 1):
+    def run_command(self, command: str, timeout: int = 30, retry_count: int = 1):
         if not command:
             raise ValueError(f"执行命令的参数传递错误. {command}")
         retry_times: int = 1
@@ -168,7 +168,6 @@ class Client(object):
                     print(f"解析<{command}>命令执行结果异常")
                     return {'stdout': out, 'stderr': err, 'returncode': status}
 
-
             except paramiko.ssh_exception.ChannelException:
                 raise ChannelError(command, self.host)
 
@@ -176,5 +175,3 @@ class Client(object):
 #     client = Client(host='10.10.100.22', username='root', password='Cljslrl0620!')
 #     res = client.run_command('ls -lh')
 #     print(res)
-
-

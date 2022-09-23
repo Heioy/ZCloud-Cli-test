@@ -12,7 +12,6 @@
 """
 
 import tomli
-from pprint import pprint
 
 
 def read_toml(file_path: str, mode: str = 'r', encoding: str = "utf-8"):
@@ -20,5 +19,3 @@ def read_toml(file_path: str, mode: str = 'r', encoding: str = "utf-8"):
         content = obj.read()
         text = tomli.loads(content)
     return text
-
-

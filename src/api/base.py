@@ -1,20 +1,9 @@
 #!/usr/bin/env python3
-# -*- coding:utf-8 -*- 
+# -*- coding:utf-8 -*-
 
-"""
-#========================================================
-# FileName     : base.py
-# CreatedTime  : 2022/9/1 15:52
-# Author       : maoqiang.wu@woqutech.com
-# Description  : 
-# ChangedTime  :
-#=========================================================
-"""
-
-import json
 import os
 from logging import Logger
-from typing import Any, List, Dict
+from typing import Any
 from src.utils.ssh import Client
 from src.utils.readFile import read_toml
 from src.utils.errors import *

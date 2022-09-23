@@ -2,10 +2,10 @@
 # -*- coding:utf-8 -*- 
 
 from logging import Logger
-from typing import Union, Any, Dict, List
+from typing import Union, Dict
 from src.api.client import ZStackClient
 from src.config.command import *
-from src.utils.errors import ParameterIsNoneError, RemoteCommandError
+from src.utils.errors import ParameterIsNoneError
 
 
 """云盘资源类"""
@@ -290,4 +290,3 @@ class DataVolume(ZStackClient):
         response = self.client.run_command(command)
 
         return response['sdtout']
-

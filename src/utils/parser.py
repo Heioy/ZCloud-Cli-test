@@ -20,7 +20,6 @@ class ParseZStackControl(object):
     def ParseDropSession(self, response) -> str:
         return response['stdout'].strip('\n')
 
-
     def parseShowSessions(self, response) -> Dict[str, str]:
         result = {}
         if response['stderr']:

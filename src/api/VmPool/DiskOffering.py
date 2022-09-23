@@ -9,5 +9,3 @@ from src.api.client import ZStackClient
 
 class DiskOffering(ZStackClient):
     pass
-
-

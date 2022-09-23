@@ -3,13 +3,8 @@
 
 import os
 import unittest
-import shutil
-import weakref
-from src.api.base import Base
 from src.api.VmPool.VmInstance import Instances
 from src.utils.logger import get_logger
-from src.scripts import config, logDirName, date
-
 
 
 class BaseCases(unittest.TestCase):
@@ -35,7 +30,6 @@ class BaseCases(unittest.TestCase):
         self.logger = get_logger(filename=filename)
         # __base = Base(logger=self.logger)
         self.vmController = Instances(logger=self.logger)
-
 
     @classmethod
     def setUpClass(cls) -> None:

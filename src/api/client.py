@@ -9,7 +9,7 @@ from src.utils.parser import (
     ParseController,
     ParseZStackClient
 )
-from src.config.commands import *
+from src.config import commands
 from src.utils.errors import *
 
 
@@ -28,7 +28,7 @@ class ZStackClient(Base):
     def login(self):
         """Login ZStack Client Management"""
         # command = [self.zstack_cli, "LogInByAccount", "accountName=%s" % self.username, "password=%s" % self.password]
-        command = f"{self.zstack_cli} {ZStack_Login_Account.format(username=self.accountName, password=self.accountPassword)}"
+        command = f"{self.zstack_cli} {commands.ZStack_Login_Account.format(username=self.accountName, password=self.accountPassword)}"
         response = self.client.run_command(command)
         # session = response['stdout']
 
@@ -45,7 +45,7 @@ class ZStackClient(Base):
 
     def logOut(self):
         """LogOut"""
-        command = f"{self.zstack_cli} {ZStack_LogOut}"
+        command = f"{self.zstack_cli} {commands.ZStack_LogOut}"
         response = self.client.run_command(command)
         if json.loads(response)['stdout']['success']:
             self.session = False
@@ -58,9 +58,9 @@ class ZStackClient(Base):
         """Query ZStack Zone"""
         self.logger.info("查询物理机所在区域...")
         if not name:
-            command = f"{self.zstack_cli} {ZStack_Query_Zone}"
+            command = f"{self.zstack_cli} {commands.ZStack_Query_Zone}"
         else:
-            command = f"{self.zstack_cli} {ZStack_Query_Zone} name={name}"
+            command = f"{self.zstack_cli} {commands.ZStack_Query_Zone} name={name}"
 
         response = self.client.run_command(command)
         return response['stdout']

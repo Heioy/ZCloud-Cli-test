@@ -82,8 +82,10 @@ class Instances(ZStackClient):
         return response['stdout']
 
     def create_vm_instance_from_volume_Snapshot(self, vmName: str, l3NetworkUuids: str, volumeSnapshotUuid: str,
-        instanceOfferingUuid: str = None, type: str = None, primaryStorageVolume: str = None,
-        defaultL3NetworkUuid: str = None, strategy: str = None) -> Union[Dict, str]:
+                                                instanceOfferingUuid: str = None, type: str = None,
+                                                primaryStorageVolume: str = None,
+                                                defaultL3NetworkUuid: str = None, strategy: str = None
+                                                ) -> Union[Dict, str]:
         """
         Create Vm Instnace From Volume Snapshot
         :param vmName: 资源名称
@@ -116,9 +118,10 @@ class Instances(ZStackClient):
         return response['stdout']
 
     def create_vm_instance_from_volume_SnapshotGroup(self, vmName: str, l3NetworkUuids: str, volumeSnapshotGroupUuid: str,
-         instanceOfferingUuid: str = None, type: str = None, primaryStorageUuidForRootVolume: str = None,
-         defaultL3NetworkUuid: str = None, strategy: str = None, systemTags: str = None
-        ) -> Union[Dict, str]:
+                                                     instanceOfferingUuid: str = None, type: str = None,
+                                                     primaryStorageUuidForRootVolume: str = None,
+                                                     defaultL3NetworkUuid: str = None,
+                                                     strategy: str = None, systemTags: str = None) -> Union[Dict, str]:
         """
         Create Vm Instance From Volume SnapshotGroup
         :param vmName: 资源名称
@@ -408,7 +411,7 @@ class Instances(ZStackClient):
         if not vmInstanceUuid or not isoUuid:
             raise ParameterIsNoneError(vmInstanceUuid=vmInstanceUuid, isoUuid=isoUuid)
 
-        command = f"{self.zstack_cli} {ZSatck_Attach_Iso_To_Instance.format(vuuid=vmInstanceUuid, isouid=isoUuid)}"
+        command = f"{self.zstack_cli} {commands.ZSatck_Attach_Iso_To_Instance.format(vuuid=vmInstanceUuid, isouid=isoUuid)}"
         response = self.client.run_command(command)
 
         return response['stdout']
@@ -928,7 +931,7 @@ class Instances(ZStackClient):
         if not uuid:
             raise ParameterIsNoneError(uuid=uuid)
 
-        command = f"{self.zstack_cli} {ZSatck_Update_Vm_Instance.format(uuid=uuid)}"
+        command = f"{self.zstack_cli} {commands.ZSatck_Update_Vm_Instance.format(uuid=uuid)}"
 
         if name:
             command = f"{command} name={name}"

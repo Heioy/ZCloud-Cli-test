@@ -49,4 +49,3 @@ def get_logger(filename: str = None,
         logger.addHandler(stream)
 
     return logger
-

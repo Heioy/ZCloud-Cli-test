@@ -139,6 +139,18 @@ ZStack_Set_Image_Qga = "SetImageQga enable={enable} uuid={uuid}"
 ZStack_Set_Image_Boot_Mode = "SetImageBootMode uuid={uuid} bootMode={mode}"
 ZStack_Get_Upload_Image_Job_Details = "GetUploadImageJobDetails"
 
+# AffinityGroup
+ZStack_Create_AffinityGroup = "CreateAffinityGroup name={name} policy={policy}"
+ZStack_Delete_AffinityGroup = "DeleteAffinityGroup uuid={uuid}"
+ZStack_Query_AffinityGroup = "QueryAffinityGroup"
+ZStack_Update_AffinityGroup = "UpdateAffinityGroup uuid={uuid}"
+ZStack_Add_Vm_to_AffinityGroup = " AddVmToAffinityGroup affinityGroupUuid={affUuid} uuid={uuid}"
+ZStack_Remove_Vm_from_AffinityGroup = "RemoveVmFromAffinityGroup affinityGroupUuid={affUuid} uuid={uuid}"
+ZStack_Change_AffinityGroup_State = "ChangeAffinityGroupState uuid={uuid} stateEvent={state}"
+ZStack_Get_Candidate_AffinityGroup_for_Attaching_Vm = "GetCandidateAffinityGroupForAttachingVm vmUuid={vuuid}"
+ZStack_Get_Candidate_VM_for_Attaching_AffinityGroup = "GetCandidateVMForAttachingAffinityGroup affinityGroupUuid={affUuid}"
+ZStack_Get_Candidate_AffinityGroup_for_Creating_Vm = "GetCandidateAffinityGroupForCreatingVm zoneUuid={zoneUuid}"
+
 # L2 Network
 ZStack_Get_L2_Network_Types = "GetL2NetworkTypes"
 ZStack_Query_L2_Network = "QueryL2Network"

@@ -4,7 +4,7 @@
 import os
 import unittest
 from src.api.VmPool.VmInstance import Instances
-from src.scripts import config, logDirName, date
+from src.scripts import logDirName, date
 from src.utils.logger import get_logger
 
 

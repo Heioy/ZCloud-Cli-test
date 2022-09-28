@@ -6,7 +6,7 @@ from logging import Logger
 from typing import Any
 from src.utils.ssh import Client
 from src.utils.readFile import read_toml
-from src.utils.errors import *
+from src.utils import errors
 
 
 class Base(object):
@@ -24,7 +24,7 @@ class Base(object):
         :param deploy_config_file: [Optional] deploy a cloud from a XML file.
         """
         # if not host or not username or not password:
-        #     raise ParameterIsNoneError(host=host, username=username, password=password)
+        #     raise errors.ParameterIsNoneError(host=host, username=username, password=password)
 
         self.config = self.set_config()
         self.host = host if host else self.config['develop']['server']

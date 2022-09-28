@@ -151,6 +151,14 @@ ZStack_Get_Candidate_AffinityGroup_for_Attaching_Vm = "GetCandidateAffinityGroup
 ZStack_Get_Candidate_VM_for_Attaching_AffinityGroup = "GetCandidateVMForAttachingAffinityGroup affinityGroupUuid={affUuid}"
 ZStack_Get_Candidate_AffinityGroup_for_Creating_Vm = "GetCandidateAffinityGroupForCreatingVm zoneUuid={zoneUuid}"
 
+# InstanceOffering
+ZStack_Create_InstanceOffering = "CreateInstanceOffering name={name} cpuNum={num} memorySize={memSize}"
+ZStack_Delete_InstanceOffering = "DeleteInstanceOffering uuid={uuid}"
+ZStack_Query_InstanceOffering = "QueryInstanceOffering"
+ZStack_Change_InstanceOffering = " ChangeInstanceOffering vmInstanceUuid={vuuid} instanceOfferingUuid={offUuid}"
+ZStack_Update_InstanceOffering = "UpdateInstanceOffering uuid={uuid}"
+ZStack_Change_InstanceOffering_State = "ChangeInstanceOfferingState stateEvent={state} uuid={uuid}"
+
 # L2 Network
 ZStack_Get_L2_Network_Types = "GetL2NetworkTypes"
 ZStack_Query_L2_Network = "QueryL2Network"

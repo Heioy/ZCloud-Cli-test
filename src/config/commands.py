@@ -159,6 +159,13 @@ ZStack_Change_InstanceOffering = " ChangeInstanceOffering vmInstanceUuid={vuuid}
 ZStack_Update_InstanceOffering = "UpdateInstanceOffering uuid={uuid}"
 ZStack_Change_InstanceOffering_State = "ChangeInstanceOfferingState stateEvent={state} uuid={uuid}"
 
+# DiskOffering
+ZStack_Create_DiskOffering = "CreateDiskOffering name={name} diskSize={size}"
+ZStack_Delete_DiskOffering = "DeleteDiskOffering uuid={uuid}"
+ZStack_Query_DiskOffering = "QueryDiskOffering"
+ZStack_Change_DiskOffering_State = "ChangeDiskOfferingState uuid={uuid} stateEvent={state}"
+ZStack_Update_DiskOffering = "UpdateDiskOffering uuid={uuid} name={name}"
+
 # L2 Network
 ZStack_Get_L2_Network_Types = "GetL2NetworkTypes"
 ZStack_Query_L2_Network = "QueryL2Network"

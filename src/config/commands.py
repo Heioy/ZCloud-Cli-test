@@ -166,6 +166,15 @@ ZStack_Query_DiskOffering = "QueryDiskOffering"
 ZStack_Change_DiskOffering_State = "ChangeDiskOfferingState uuid={uuid} stateEvent={state}"
 ZStack_Update_DiskOffering = "UpdateDiskOffering uuid={uuid} name={name}"
 
+# SnapshotGroup
+ZStack_Create_SnapshotGroup = "CreateVolumeSnapshotGroup rootVolumeUuid={voluuid} name={name}"
+ZStack_Delete_SnapshotGroup = "DeleteVolumeSnapshotGroup uuid={uuid}"
+ZStack_Update_SnapshotGroup = "UpdateVolumeSnapshotGroup uuid={uuid} name={name}"
+ZStack_Query_SnapshotGroup = "QueryVolumeSnapshotGroup"
+ZStack_Check_SnapshotGroup_Availability = "CheckVolumeSnapshotGroupAvailability uuids={uuids}"
+ZStack_Revert_Vm_from_SnapshotGroup = "RevertVmFromSnapshotGroup uuid={uuid}"
+ZStack_Ungroup_Volume_SnapshotGroup = "UngroupVolumeSnapshotGroup uuid={uuid}"
+
 # L2 Network
 ZStack_Get_L2_Network_Types = "GetL2NetworkTypes"
 ZStack_Query_L2_Network = "QueryL2Network"

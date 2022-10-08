@@ -175,6 +175,14 @@ ZStack_Check_SnapshotGroup_Availability = "CheckVolumeSnapshotGroupAvailability 
 ZStack_Revert_Vm_from_SnapshotGroup = "RevertVmFromSnapshotGroup uuid={uuid}"
 ZStack_Ungroup_Volume_SnapshotGroup = "UngroupVolumeSnapshotGroup uuid={uuid}"
 
+# Zone
+ZStack_Create_Zone = "CreateZone name={name}"
+ZStack_Delete_Zone = "DeleteZone uuid={uuid}"
+ZStack_Query_Zone = "QueryZone"
+ZStack_Update_Zone = "UpdateZone uuid={uuid} name={name}"
+ZStack_Change_Zone_State = "ChangeZoneState stateEvent={state} uuid={uuid}"
+
+
 # L2 Network
 ZStack_Get_L2_Network_Types = "GetL2NetworkTypes"
 ZStack_Query_L2_Network = "QueryL2Network"

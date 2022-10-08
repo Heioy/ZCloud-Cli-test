@@ -7,6 +7,7 @@ from src.api.client import ZStackClient
 from src.config import commands
 from src.utils.errors import ParameterIsNoneError
 
+
 class Cluster(ZStackClient):
 
     def __init__(self, logger: Logger = None):

@@ -189,6 +189,23 @@ ZStack_Query_Cluster = "QueryCluster"
 ZStack_Update_Cluster = "UpdateCluster uuid={uuid} name={test}"
 ZStack_Change_Cluster_State = "ChangeClusterState uuid={uuid} stateEvent={state}"
 
+# Host
+ZStack_Query_Host = "QueryHost"
+ZStack_Update_Host = "UpdateHost name={name} uuid={uuid}"
+ZStack_Change_Host_State = "ChangeHostState stateEvent={state} uuid={uuid}"
+ZStack_Reconnect_Host = "ReconnectHost uuid={uuid}"
+ZStack_Delete_Host = "DeleteHost uuid={uuid}"
+ZStack_Get_Host_Allocator_Strategies = "GetHostAllocatorStrategie"
+ZStack_Get_Hypervisor_Types = "GetHypervisorTypes"
+ZStack_Update_KVM_Host = "UpdateKVMHost name={name} uuid={uuid}"
+ZStack_Add_KVM_Host = "AddKVMHost username={username} clusterUuid={clusterUuid} name={name} managementIp={ip} password={password}"
+ZStack_KVM_Run_Shell = "KvmRunShell hostUuids={hostUuids} script={script}"
+ZStack_Add_KVM_from_ConfigFile = "AddKVMHostFromConfigFile hostInfo={hostInfo}"
+ZStack_Check_KVM_Host_ConfigFile = "CheckKVMHostConfigFile hostInfo={hostInfo}"
+ZStack_Get_Host_Network_Facts = "GetHostNetworkFacts hostUuid={hostUuid}"
+ZStack_Query_Host_Network_Bonding = "QueryHostNetworkBonding"
+ZStack_Query_Host_Network_Interface = "QueryHostNetworkInterface"
+
 
 # L2 Network
 ZStack_Get_L2_Network_Types = "GetL2NetworkTypes"

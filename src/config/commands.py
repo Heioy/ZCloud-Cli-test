@@ -182,6 +182,13 @@ ZStack_Query_Zone = "QueryZone"
 ZStack_Update_Zone = "UpdateZone uuid={uuid} name={name}"
 ZStack_Change_Zone_State = "ChangeZoneState stateEvent={state} uuid={uuid}"
 
+# Cluster
+ZStack_Create_Cluster = "CreateCluster name={name} hypervisorType={hyoerType} zoneUuid={zoneUuid}"
+ZStack_Delete_Cluster = "DeleteCluster uuid={uuid}"
+ZStack_Query_Cluster = "QueryCluster"
+ZStack_Update_Cluster = "UpdateCluster uuid={uuid} name={test}"
+ZStack_Change_Cluster_State = "ChangeClusterState uuid={uuid} stateEvent={state}"
+
 
 # L2 Network
 ZStack_Get_L2_Network_Types = "GetL2NetworkTypes"

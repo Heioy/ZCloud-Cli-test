@@ -206,6 +206,22 @@ ZStack_Get_Host_Network_Facts = "GetHostNetworkFacts hostUuid={hostUuid}"
 ZStack_Query_Host_Network_Bonding = "QueryHostNetworkBonding"
 ZStack_Query_Host_Network_Interface = "QueryHostNetworkInterface"
 
+# Host - PCI Device
+ZStack_Query_Pci_Device = "QueryPciDevice"
+ZStack_Update_Pci_Device = "UpdatePciDevice uuid={uuid} state={state}"
+ZStack_Delete_Pci_Device = "DeletePciDevice uuid={uuid}"
+ZStack_Get_Pci_Device_Candidates_for_Attaching_Vm = "GetPciDeviceCandidatesForAttachingVm vmInstanceUuid={vuuid}"
+ZStack_Get_Pci_Device_Candidates_for_NewCreate_Vm = "GetPciDeviceCandidatesForNewCreateVm"
+ZStack_Attach_Pci_Device_to_Vm = "AttachPciDeviceToVm pciDeviceUuid={pciUuid} vmInstanceUuid={vuuid}"
+ZStack_Detach_Pci_Device_from_Vm = " DetachPciDeviceFromVm pciDeviceUuid={pciUuid} vmInstanceUuid={vuuid}"
+ZStack_Create_Pci_Device_Offering = "CreatePciDeviceOffering vendorId={vendorId} deviceId={deviceId}"
+ZStack_Delete_Pci_Device_Offering = "DeletePciDeviceOffering uuid={uuid}"
+ZStack_Query_Pci_Device_Offering = "QueryPciDeviceOffering"
+
+# Host - SR-IOV
+ZStack_Is_VfNic_Available_In_L3Network = "IsVfNicAvailableInL3Network l3NetworkUuid={l3uuid} hostUuid={hostUuid}"
+ZStack_Change_Vm_Nic_Type = "ChangeVmNicType vmNicUuid={vNicuuid} vmNicType={vNictype}"
+
 
 # L2 Network
 ZStack_Get_L2_Network_Types = "GetL2NetworkTypes"

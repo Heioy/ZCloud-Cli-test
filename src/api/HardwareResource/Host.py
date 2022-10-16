@@ -20,6 +20,10 @@ class Host(ZStackClient):
         :param vmNicIp: 云主机实例所使用的IP
         """
         command = f"{self.zstack_cli} {commands.ZStack_Query_Host}"
+        if managementIp:
+            command = f"{command} managementIp={managementIp}"
+        if vmNicIp:
+            command = f"{command} vmInstance.vmNics.ip={vmNicIp}"
         if kwargs:
             for key, value in kwargs.items():
                 command += f" {key}={value}"
@@ -225,5 +229,207 @@ class Host(ZStackClient):
         if kwargs:
             for key, value in kwargs.items():
                 command += f" {key}={value}"
+        response = self.client.run_command(command)
+        return response['stdout']
+
+
+class PCIDevice(ZStackClient):
+
+    def __init__(self, logger: Logger = None):
+        super(PCIDevice, self).__init__(logger=logger)
+
+    def query_pci_device(self, **kwargs) -> Union[Dict, str]:
+        """
+        查询PCI设备
+        :param kwargs:
+        """
+        command = f"{self.zstack_cli} {commands.ZStack_Query_Pci_Device}"
+        if kwargs:
+            for key, value in kwargs.items():
+                command += f" {key}={value}"
+        response = self.client.run_command(command)
+        return response['stdout']
+
+    def update_pci_device(self, uuid: str, state: str, description: str = None, metaData: str = None) -> Union[
+        Dict, str]:
+        """
+        更新PCI设备
+        :param uuid: 资源的UUID，唯一标示该资源
+        :param state: 资源状态 ["Enabled", "Disabled"]
+        :param description: 资源的详细描述
+        :param metaData:
+        """
+        if not uuid or not state:
+            raise ParameterIsNoneError(uuid=uuid, state=state)
+        command = f"{self.zstack_cli} {commands.ZStack_Update_Pci_Device.format(uuid=uuid, state=state)}"
+        if description:
+            command = f"{command} description={description}"
+        if metaData:
+            command = f"{command} metaData={metaData}"
+        response = self.client.run_command(command)
+        return response['stdout']
+
+    def delete_pci_device(self, uuid: str, deleteMode: str = None) -> Union[Dict, str]:
+        """
+        删除PCI设备
+        :param uuid: 资源的UUID，唯一标示该资源
+        :param deleteMode: 删除模式
+        """
+        if not uuid:
+            raise ParameterIsNoneError(uuid=uuid)
+        command = f"{self.zstack_cli} {commands.ZStack_Delete_Pci_Device.format(uuid=uuid)}"
+        if deleteMode:
+            command = f"{command} deleteMode={deleteMode}"
+        response = self.client.run_command(command)
+        return response['stdout']
+
+    def get_pci_device_candidates_for_attaching_vm(self, vmInstanceUuid: str, device_types: str = None) -> Union[
+        Dict, str]:
+        """
+        获取PCI设备列表
+        :param vmInstanceUuid: 云主机UUID
+        :param device_types: PCI Device 设备类型
+        """
+        if not vmInstanceUuid:
+            raise ParameterIsNoneError(vmInstanceUuid=vmInstanceUuid)
+        command = f"{self.zstack_cli} {commands.ZStack_Get_Pci_Device_Candidates_for_Attaching_Vm.format(vuuid=vmInstanceUuid)}"
+        if device_types:
+            command = f"{command} types={device_types}"
+        response = self.client.run_command(command)
+        return response['stdout']
+
+    def get_pci_device_candidates_for_newcreate_vm(self, hostUuid: str = None, clusterUuids: str = None,
+                                                   types: str = None) -> Union[Dict, str]:
+        """
+        获取可加载PCI设备
+        :param hostUuid: 物理机UUID
+        :param clusterUuids: 集群UUID
+        :param types: PCI Device设备类型
+        """
+        command = f"{self.zstack_cli} {commands.ZStack_Get_Pci_Device_Candidates_for_NewCreate_Vm}"
+        if hostUuid:
+            command = f"{command} hostUuid={hostUuid}"
+        if clusterUuids:
+            command = f"{command} clusterUuids={clusterUuids}"
+        if types:
+            command = f"{command} types={types}"
+        response = self.client.run_command(command)
+        return response['stdout']
+
+    def attach_pci_device_to_vm(self, pciDeviceUuid: str, vmInstanceUuid: str) -> Union[Dict, str]:
+        """
+        绑定PCI设备到云主机
+        :param pciDeviceUuid: PCI设备UUID
+        :param vmInstanceUuid: 云主机UUID
+        """
+        if not pciDeviceUuid or not vmInstanceUuid:
+            raise ParameterIsNoneError(pciDeviceUuid=pciDeviceUuid, vmInstanceUuid=vmInstanceUuid)
+        command = f"{self.zstack_cli} {commands.ZStack_Attach_Pci_Device_to_Vm.format(pciUuid=pciDeviceUuid, vuuid=vmInstanceUuid)}"
+        response = self.client.run_command(command)
+        return response['stdout']
+
+    def detach_pci_device_from_vm(self, pciDeviceUuid: str, vmInstanceUuid: str) -> Union[Dict, str]:
+        """
+        卸载PCI设备
+        :param pciDeviceUuid: PCI设备UUID
+        :param vmInstanceUuid: 云主机UUID
+        """
+        if not pciDeviceUuid or not vmInstanceUuid:
+            raise ParameterIsNoneError(pciDeviceUuid=pciDeviceUuid, vmInstanceUuid=vmInstanceUuid)
+        command = f"{self.zstack_cli} {commands.ZStack_Detach_Pci_Device_from_Vm.format(pciUuid=pciDeviceUuid, vuuid=vmInstanceUuid)}"
+        response = self.client.run_command(command)
+        return response['stdout']
+
+    def create_pci_device_offering(self, vendorId: str, deviceId: str, name: str = None, description: str = None,
+                                   device_type: str = None, subvendorId: str = None, subdeviceId: str = None,
+                                   resourceUuid: str = None) -> Union[Dict, str]:
+        """
+        创建PCI设备规格
+        :param vendorId: 供应商ID
+        :param deviceId: 产品ID
+        :param name: 资源名称
+        :param description: 资源的详细描述
+        :param device_type: 设备类型
+        :param subvendorId: 子供应商ID
+        :param subdeviceId: 子设备ID
+        :param resourceUuid: 资源UUID
+        """
+        if not vendorId or not deviceId:
+            raise ParameterIsNoneError(vendorId=vendorId, deviceId=deviceId)
+        command = f"{self.zstack_cli} {commands.ZStack_Create_Pci_Device_Offering.format(vendorId=vendorId, deviceId=deviceId)}"
+        if name:
+            command = f"{command} name={name}"
+        if description:
+            command = f"{command} description={description}"
+        if device_type:
+            command = f"{command} type={device_type}"
+        if subdeviceId:
+            command = f"{command} subdeviceId={subdeviceId}"
+        if subvendorId:
+            command = f"{command} subvendorId={subvendorId}"
+        if resourceUuid:
+            command = f"{command} resourceUuid={resourceUuid}"
+        response = self.client.run_command(command)
+        return response['stdout']
+
+    def delete_pci_device_offering(self, uuid: str, deleteMode: str = None) -> Union[Dict, str]:
+        """
+        删除PCI设备规格
+        :param uuid: 资源的UUID，唯一标示该资源
+        :param deleteMode: 删除模式
+        """
+        if not uuid:
+            raise ParameterIsNoneError(uuid=uuid)
+        command = f"{self.zstack_cli} {commands.ZStack_Delete_Pci_Device_Offering.format(uuid=uuid)}"
+        if deleteMode:
+            command = f"{command} deleteMode={deleteMode}"
+        response = self.client.run_command(command)
+        return response['stdout']
+
+    def query_pci_device_offering(self, **kwargs) -> Union[Dict, str]:
+        """
+        查询PCI设备规格信息
+        :param kwargs:
+        """
+        command = f"{self.zstack_cli} {commands.ZStack_Query_Pci_Device_Offering}"
+        if kwargs:
+            for key, value in kwargs.items():
+                command += f" {key}={value}"
+        response = self.client.run_command(command)
+        return response['stdout']
+
+
+class VmUSB(ZStackClient):
+
+    def __init__(self, logger: Logger = None):
+        super(VmUSB, self).__init__(logger=logger)
+
+
+class SRIOV(ZStackClient):
+
+    def __init__(self, logger: Logger = None):
+        super(SRIOV, self).__init__(logger=logger)
+
+    def is_vf_nic_available_in_l3network(self, l3NetworkUuid: str, hostUuid: str) -> Union[Dict, str]:
+        """
+        查询L3网络中是否存在可用VF网卡
+        :param l3NetworkUuid: 三层网络UUID
+        :param hostUuid: 物理机UUID
+        """
+        if not l3NetworkUuid or not hostUuid:
+            raise ParameterIsNoneError(l3NetworkUuid=l3NetworkUuid, hostUuid=hostUuid)
+        command = f"{self.zstack_cli} {commands.ZStack_Is_VfNic_Available_In_L3Network.format(l3uuid=l3NetworkUuid, hostUuid=hostUuid)}"
+        response = self.client.run_command(command)
+        return response['stdout']
+
+    def change_vm_nic_type(self, vmNicUuid: str, vmNicType: str) -> Union[Dict, str]:
+        """
+        修改云主机网卡类型
+        :param vmNicUuid: 云主机网卡UUID
+        :param vmNicType: 云主机网卡类型  "VNIC"
+        """
+        if not vmNicUuid or not vmNicType:
+            raise ParameterIsNoneError(vmNicType=vmNicType, vmNicUuid=vmNicUuid)
+        command = f"{self.zstack_cli} {commands.ZStack_Change_Vm_Nic_Type.format(vNicuuid=vmNicUuid, vNictype=vmNicType)}"
         response = self.client.run_command(command)
         return response['stdout']

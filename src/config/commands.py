@@ -222,6 +222,32 @@ ZStack_Query_Pci_Device_Offering = "QueryPciDeviceOffering"
 ZStack_Is_VfNic_Available_In_L3Network = "IsVfNicAvailableInL3Network l3NetworkUuid={l3uuid} hostUuid={hostUuid}"
 ZStack_Change_Vm_Nic_Type = "ChangeVmNicType vmNicUuid={vNicuuid} vmNicType={vNictype}"
 
+# Primary Storage
+ZStack_Delete_PrimaryStorage = "DeletePrimaryStorage uuid={uuid}"
+ZStack_Query_PrimaryStorage = "QueryPrimaryStorage"
+ZStack_Attach_PrimaryStorage_to_Cluster = "AttachPrimaryStorageToCluster clusterUuid={clusterUuid} primaryStorageUuid={stoUuid}"
+ZStack_Detach_PrimaryStorage_to_Cluster = "AttachPrimaryStorageToCluster clusterUuid={clusterUuid} primaryStorageUuid={stoUuid}"
+ZStack_Reconnect_PrimaryStorage = "ReconnectPrimaryStorage uuid={uuid}"
+ZStack_Get_PrimaryStorage_Capacity = "GetPrimaryStorageCapacity"
+ZStack_Sync_PrimaryStorage_Capacity = "SyncPrimaryStorageCapacity primaryStorageUuid={stoUuid}"
+ZStack_Change_PrimaryStorage_State = "ChangePrimaryStorageState uuid={uuid} stateEvent={state}"
+ZStack_Update_PrimaryStorage = "UpdatePrimaryStorage uuid={uuid} name={name}"
+ZStack_CleanUp_Image_Cache_on_PrimaryStorage = "CleanUpImageCacheOnPrimaryStorage uuid={uuid}"
+ZStack_Get_PrimaryStorage_Allocator_Strategies = "GetPrimaryStorageAllocatorStrategies"
+ZStack_Get_PrimaryStorage_Types = "GetPrimaryStorageTypes"
+ZStack_Get_PrimaryStorage_Candidates_For_Volume_Migration = "GetPrimaryStorageCandidatesForVolumeMigration volumeUuid={voluuid}"
+ZStack_Get_Host_Candidates_for_Vm_Migration = "GetHostCandidatesForVmMigration vmInstanceUuid={vuuid} dstPrimaryStorageUuid={dstuuid}"
+ZStack_PrimaryStorage_Migrate_Volume = "PrimaryStorageMigrateVolume volumeUuid={voluuid} dstPrimaryStorageUuid={dstuuid}"
+ZStack_PrimaryStorage_Migrate_Vm = "PrimaryStorageMigrateVm vmInstanceUuid={vuuid} dstPrimaryStorageUuid={dstuuid}"
+ZStack_Get_PrimaryStorage_Candidates_For_Vm_Migration = "GetPrimaryStorageCandidatesForVmMigration vmInstanceUuid={vuuid}"
+ZStack_Get_PrimaryStorage_License_Info = "GetPrimaryStorageLicenseInfo uuid={uuid}"
+
+# Local Primary Storage
+ZStack_Add_Local_PrimaryStorage = "AddLocalPrimaryStorage url='{url}' name={name} zoneUuid={zoneUuid}"
+ZStack_Query_Local_Storage_Resource_Ref = "QueryLocalStorageResourceRef"
+ZStack_Local_Storage_Migrate_Volume = "LocalStorageMigrateVolume volumeUuid={voluuid} destHostUuid={dstuuid}"
+ZStack_Get_Local_Storage_Host_Disk_Capacity = "GetLocalStorageHostDiskCapacity hostUuid={hostUuid} primaryStorageUuid={stoUuid}"
+ZStack_Local_Storage_Get_Volume_Migratable_Hosts = "LocalStorageGetVolumeMigratableHosts volumeUuid={voluuid}"
 
 # L2 Network
 ZStack_Get_L2_Network_Types = "GetL2NetworkTypes"

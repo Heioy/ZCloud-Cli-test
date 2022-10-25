@@ -249,6 +249,23 @@ ZStack_Local_Storage_Migrate_Volume = "LocalStorageMigrateVolume volumeUuid={vol
 ZStack_Get_Local_Storage_Host_Disk_Capacity = "GetLocalStorageHostDiskCapacity hostUuid={hostUuid} primaryStorageUuid={stoUuid}"
 ZStack_Local_Storage_Get_Volume_Migratable_Hosts = "LocalStorageGetVolumeMigratableHosts volumeUuid={voluuid}"
 
+# NFS Primary Storage
+ZStack_Add_NFS_PrimaryStorage = "AddNfsPrimaryStorage name={name} zoneUuid={zoneUuid} url={url}"
+
+# Shared Mount Point
+ZStack_Add_Shared_MountPoint_PrimaryStorage = "AddSharedMountPointPrimaryStorage name={name} url={url} zoneUuid={zoneUuid}"
+
+# Ceph Primary Storage
+ZStack_Add_Ceph_PrimaryStorage = "AddCephPrimaryStorage name={name} zoneUuid={zoneUuid} monUrls={monUrls}"
+ZStack_Query_Ceph_PrimaryStorage = "QueryCephPrimaryStorage"
+ZStack_Add_Mon_to_Ceph_PrimaryStorage = "AddMonToCephPrimaryStorage uuid={uuid} monUrls={monUrls}"
+ZStack_Remove_Mon_from_Ceph_PrimaryStorage = "RemoveMonFromCephPrimaryStorage uuid={uuid} monHostnames={monHostnames}"
+ZStack_Update_Ceph_PrimaryStorage = "UpdateCephPrimaryStorageMon monUuid={monUuid}"
+ZStack_Add_Ceph_PrimaryStorage_Pool = "AddCephPrimaryStoragePool poolName={poolName} primaryStorageUuid={stoUuid} isCreate={isCreate}"
+ZStack_Delete_Ceph_PrimaryStorage_Pool = "DeleteCephPrimaryStoragePool uuid={uuid}"
+ZStack_Query_Ceph_PrimaryStorage_Pool = "QueryCephPrimaryStoragePool"
+ZStack_Update_Ceph_PrimaryStorage_Pool = "UpdateCephPrimaryStoragePool uuid={uuid}"
+
 # L2 Network
 ZStack_Get_L2_Network_Types = "GetL2NetworkTypes"
 ZStack_Query_L2_Network = "QueryL2Network"

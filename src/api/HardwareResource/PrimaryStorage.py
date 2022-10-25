@@ -326,3 +326,214 @@ class PrimaryStorage(ZStackClient):
         command = f"{self.zstack_cli} {commands.ZStack_Local_Storage_Get_Volume_Migratable_Hosts.format(voluuid=volumeUuid)}"
         response = self.client.run_command(command)
         return response['stdout']
+
+    def add_nfs_primaryStorage(self, url: str, name: str, zoneUuid: str, description: str = None, _type: str = None,
+                               resourceUuid: str = None) -> Union[Dict, str]:
+        """
+        添加NFS主存储
+        :param url: NFS公开地址，格式为nfs-host:/path/to/export
+        :param name: NFS主存储名称
+        :param zoneUuid:  区域UUID
+        :param description: NFS主存储详细描述
+        :param _type: 类型为NFS
+        :param resourceUuid: 资源uuid
+        """
+        if not url or not name or not zoneUuid:
+            raise ParameterIsNoneError(url=url, name=name, zoneUuid=zoneUuid)
+        command = f"{self.zstack_cli} {commands.ZStack_Add_NFS_PrimaryStorage.format(url=url, name=name, zoneUuid=zoneUuid)}"
+        if description:
+            command = f"{command} description={description}"
+        if _type:
+            command = f"{command} type={_type}"
+        if resourceUuid:
+            command = f"{command} resourceUuid={resourceUuid}"
+        response = self.client.run_command(command)
+        return response['stdout']
+
+    def add_shared_mountPoint_primaryStorage(self,url: str, name: str, zoneUuid: str, description: str = None, _type: str = None,
+                                             resourceUuid: str = None) -> Union[Dict, str]:
+        """
+        添加一个共享挂载点的主存储
+        :param url: NFS公开地址，格式为nfs-host:/path/to/export
+        :param name: NFS主存储名称
+        :param zoneUuid:  区域UUID
+        :param description: NFS主存储详细描述
+        :param _type: 类型为 Shared Mount Point
+        :param resourceUuid: 资源uuid
+        """
+        if not url or not zoneUuid or not name:
+            raise ParameterIsNoneError(url=url, name=name, zoneUuid=zoneUuid)
+        command = f"{self.zstack_cli} {commands.ZStack_Add_Shared_MountPoint_PrimaryStorage.format(url=url, name=name, zoneUuid=zoneUuid)}"
+        if description:
+            command = f"{command} description={description}"
+        if _type:
+            command = f"{command} type={_type}"
+        if resourceUuid:
+            command = f"{command} resourceUuid={resourceUuid}"
+        response = self.client.run_command(command)
+        return response['stdout']
+
+    def add_cephPrimaryStorage(self, monUrls: str, name: str, zoneUuid: str, rootVolumePoolName: str = None, url: str = None,
+                                dataVolumePoolName: str = None, imageCachePoolName: str = None, description: str = None,
+                                _type: str = None, resourceUuid: str = None) -> Union[Dict, str]:
+        """
+        添加Ceph主存储
+        :param monUrls: Ceph mon的地址列表
+        :param url:
+        :param name:Ceph主存储名称
+        :param zoneUuid: 区域uuid
+        :param rootVolumePoolName: 指定RootVolume可使用的Cephpool名字
+        :param dataVolumePoolName: 指定DataVolume可使用的Cephpool名字
+        :param imageCachePoolName: 指定镜像缓存可使用的Cephpool名字
+        :param description: Ceph主存储 详细描述
+        :param _type: 类型为Ceph
+        :param resourceUuid: 资源uuid
+        """
+        if not monUrls or not name or not zoneUuid:
+            raise ParameterIsNoneError(monUrls=monUrls, name=name, zoneUuid=zoneUuid)
+        command = f"{self.zstack_cli} {commands.ZStack_Add_Ceph_PrimaryStorage.format(monUrls=monUrls, name=name, zoneUuid=zoneUuid)}"
+        if rootVolumePoolName:
+            command = f"{command} rootVolumePoolName={rootVolumePoolName}"
+        if url:
+            command = f"{command} url={url}"
+        if dataVolumePoolName:
+            command = f"{command} dataVolumePoolName={dataVolumePoolName}"
+        if imageCachePoolName:
+            command = f"{command} imageCachePoolName={imageCachePoolName}"
+        if description:
+            command = f"{command} description={description}"
+        if _type:
+            command = f"{command} type={_type}"
+        if resourceUuid:
+            command = f"{command} resourceUuid={resourceUuid}"
+        response = self.client.run_command(command)
+        return response['stdout']
+
+    def query_cephPrimaryStorage(self, uuid: str = None, cluster_uuid: str = None) -> Union[Dict, str]:
+        """
+        查询Ceph主存储
+        :param uuid:
+        :param cluster_uuid:
+        """
+        command = f"{self.zstack_cli} {commands.ZStack_Query_Ceph_PrimaryStorage}"
+        if uuid:
+            command = f"{command} uuid={uuid}"
+        if cluster_uuid:
+            command = f"{command} cluster_uuid={cluster_uuid}"
+        response = self.client.run_command(command)
+        return response['stdout']
+
+    def add_mon_to_cephPrimaryStorage(self, uuid: str, monUrls: str) -> Union[Dict, str]:
+        """
+        为Ceph主存储添加mon节点
+        :param uuid: Ceph主存储uuid
+        :param monUrls: Ceph mon的地址列表
+        """
+        if not uuid or not monUrls:
+            raise ParameterIsNoneError(uuid=uuid, monUrls=monUrls)
+        command = f"{self.zstack_cli} {commands.ZStack_Add_Mon_to_Ceph_PrimaryStorage.format(uuid=uuid, monUrls=monUrls)}"
+        response = self.client.run_command(command)
+        return response['stdout']
+
+    def remove_mon_from_cephPrimaryStorage(self, uuid: str, monHostnames: str) -> Union[Dict, str]:
+        """
+        从Ceph主存储删除mon节点
+        :param uuid: Ceph主存储uuid
+        :param monHostnames: mon节点名字列表
+        """
+        if not uuid or not monHostnames:
+            raise ParameterIsNoneError(uuid=uuid, monHostnames=monHostnames)
+        command = f"{self.zstack_cli} {commands.ZStack_Remove_Mon_from_Ceph_PrimaryStorage.format(uuid=uuid, monHostnames=monHostnames)}"
+        response = self.client.run_command(command)
+        return response['stdout']
+
+    def update_cephPrimaryStorage(self, monUuid: str, hostname: str = None, sshUsername: str = None, sshPassword: str = None,
+                                  sshPort: str = None, monPort: str = None) -> Union[Dict, str]:
+        """
+        更新Ceph主存储mon节点
+        :param monUuid: mon节点uuid
+        :param hostname: mon节点新主机地址
+        :param sshUsername: mon节点主机ssh用户名
+        :param sshPassword: mon节点主机ssh用户密码
+        :param sshPort: mon节点主机ssh端口
+        :param monPort: mon的新端口
+        """
+        if not monUuid:
+            raise ParameterIsNoneError(monUuid=monUuid)
+        command = f"{self.zstack_cli} {commands.ZStack_Update_Ceph_PrimaryStorage.format(monUuid=monUuid)}"
+        if hostname:
+            command = f"{command} hostname={hostname}"
+        if sshUsername:
+            command = f"{command} sshUsername={sshUsername}"
+        if sshPassword:
+            command = f"{command} sshPassword={sshPassword}"
+        if sshPort:
+            command = f"{command} sshPort={sshPort}"
+        if monPort:
+            command = f"{command} monPort={monPort}"
+        response = self.client.run_command(command)
+        return response['stdout']
+
+    def add_cephPrimaryStorage_pool(self, primaryStorageUuid: str, poolName: str, isCreate: str = bool, _type: str = None,
+                                    description: str = None, resourceUuid: str = None, aliasName: str = None) -> Union[Dict, str]:
+        """
+        添加Ceph主存储池
+        :param primaryStorageUuid: Ceph主存储UUID
+        :param poolName: 池名称
+        :param isCreate: 创建扩展池，若添加的池不存在则必须先创建
+        :param _type: 存储池类型
+        :param description: 资源的详细描述
+        :param resourceUuid:
+        :param aliasName: 扩展池显示名
+        """
+        if not primaryStorageUuid or not poolName or not isCreate:
+            raise ParameterIsNoneError(primaryStorageUuid=primaryStorageUuid, poolName=poolName, isCreate=isCreate)
+        command = f"{self.zstack_cli} {commands.ZStack_Add_Ceph_PrimaryStorage_Pool.format(stoUuid=primaryStorageUuid, poolName=poolName, isCreate=isCreate)}"
+        if _type:
+            command = f"{command} type={_type}"
+        if description:
+            command = f"{command} description={description}"
+        if resourceUuid:
+            command = f"{command} resourceUuid={resourceUuid}"
+        if aliasName:
+            command = f"{command} aliasName={aliasName}"
+        response = self.client.run_command(command)
+        return response['stdout']
+
+    def delete_cephPrimaryStorage_pool(self, uuid: str) -> Union[Dict, str]:
+        """
+        删除Ceph主存储池
+        :param uuid: Ceph主存储池UUID
+        """
+        if not uuid:
+            raise ParameterIsNoneError(uuid=uuid)
+        command = f"{self.zstack_cli} {commands.ZStack_Delete_Ceph_PrimaryStorage_Pool.format(uuid=uuid)}"
+        response = self.client.run_command(command)
+        return response['stdout']
+
+    def query_cephPrimaryStorage_pool(self, poolName: str = None) -> Union[Dict, str]:
+        """
+        查询Ceph主存储池
+        """
+        command = f"{self.zstack_cli} {commands.ZStack_Query_Ceph_PrimaryStorage_Pool}"
+        if poolName:
+            command = f"{command} poolName={poolName}"
+        response = self.client.run_command(command)
+        return response['stdout']
+
+    def update_cephPrimaryStorage_pool(self, uuid: str, description: str = None, aliasName: str = None) -> Union[Dict, str]:
+        """
+        更新Ceph主存储池
+        :param uuid: Ceph主存储池UUID
+        :param description: 资源的详细描述
+        :param aliasName: 扩展池显示名
+        """
+        if not uuid:
+            raise ParameterIsNoneError(uuid=uuid)
+        command = f"{self.zstack_cli} {commands.ZStack_Update_Ceph_PrimaryStorage_Pool.format(uuid=uuid)}"
+        if description:
+            command = f"{command} description={description}"
+        if aliasName:
+            command = f"{command} aliasName={aliasName}"
+        response = self.client.run_command(command)
+        return response['stdout']

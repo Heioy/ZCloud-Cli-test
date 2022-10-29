@@ -181,3 +181,178 @@ class BackupStorage(ZStackClient):
         command = f"{self.zstack_cli} {commands.ZStack_Get_BackupStorage_Candidates_from_Image_Migration.format(srcUuid=srcBackupStorageUuid)}"
         response = self.client.run_command(command)
         return response['stdout']
+
+    def add_imageStore_backupStorage(self, hostname: str, username: str, password: str, url: str, name: str,
+                                      sshPort: int = 22, description: str = None, store_type: str = 'ImageStoreBackupStorage ',
+                                      importImages: str = None, resourceUuid: str = None) -> Union[Dict, str]:
+        """
+        添加镜像仓库服务器
+        :param hostname: 服务器主机地址
+        :param username: 服务器SSH用户名
+        :param password: 服务器SSH用户密码
+        :param url: 镜像仓库本地数据存放路径
+        :param name: 镜像仓库名称
+        :param sshPort: 服务器SSH端口
+        :param description: 镜像仓库详细描述
+        :param store_type: 类型为ImageStoreBackupStorage
+        :param importImages: 是否导入镜像
+        :param resourceUuid: 资源uuid
+        """
+        if not hostname or not username or not password or not url or not name:
+            raise ParameterIsNoneError(hostname=hostname, username=username, password=password, url=url, name=name)
+        command = f"{self.zstack_cli} {commands.ZStack_Add_ImageStore_BakcupStorage.format(hostname=hostname, username=username, password=password, url=url, name=name)}"
+        if sshPort:
+            command = f"{command} sshPort={sshPort}"
+        if description:
+            command = f"{command} description={description}"
+        if store_type:
+            command = f"{command} type={store_type}"
+        if importImages:
+            command = f"{command} importImages={importImages}"
+        if resourceUuid:
+            command = f"{command} resourceUuid={resourceUuid}"
+        response = self.client.run_command(command)
+        return response['stdout']
+
+    def update_imageStore_backupStorage(self, uuid: str, name: str, hostname: str = None, username: str = None,
+                                        password: str = None, sshPort: int = 22, description: str =  None) -> Union[Dict, str]:
+        """
+        更新镜像仓库服务器信息
+        :param uuid: 镜像服务器uuid
+        :param name: 镜像服务器新名称
+        :param hostname: 镜像服务器主机地址
+        :param username: SSH用户名
+        :param password: SSH用户密码
+        :param sshPort: 服务器SSH端口
+        :param description: 镜像服务器新详细描述
+        """
+        if not uuid or not name:
+            raise ParameterIsNoneError(uuid=uuid, name=name)
+        command = f"{self.zstack_cli} {commands.ZStack_Update_ImageStore_BackupStorage.format(uuid=uuid, name=name)}"
+        if hostname:
+            command = f"{command} hostname={hostname}"
+        if username:
+            command = f"{command} username={username}"
+        if password:
+            command = f"{command} password={password}"
+        if sshPort:
+            command = f"{command} sshPort={sshPort}"
+        if description:
+            command = f"{command} description={description}"
+        response = self.client.run_command(command)
+        return response['stdout']
+
+    def reconnect_imageStore_backupStorage(self, uuid: str) -> Union[Dict, str]:
+        """
+        重连镜像仓库服务器
+        :param uuid: 镜像仓库服务器uuid
+        """
+        if not uuid:
+            raise ParameterIsNoneError(uuid=uuid)
+        command = f"{self.zstack_cli} {commands.ZStack_Reconnect_ImageStore_BackupStorage.format(uuid=uuid)}"
+        response = self.client.run_command(command)
+        return response['stdout']
+
+    def recliam_space_from_imageStore(self, uuid: str) -> Union[Dict, str]:
+        """
+        从镜像仓库回收磁盘空间
+        :param uuid: 镜像仓库服务器uuid
+        """
+        if not uuid:
+            raise ParameterIsNoneError(uuid=uuid)
+        command = f"{self.zstack_cli} {commands.ZStack_Recliam_Space_from_ImageStore.format(uuid=uuid)}"
+        response = self.client.run_command(command)
+        return response['stdout']
+
+    def add_ceph_backupStorage(self, monUrls: str, name: str, poolName: str = None, description: str = None,
+                               ceph_type: str = 'Ceph', importImages: str = None, resourceUuid: str = None) -> Union[Dict, str]:
+        """
+        添加Ceph镜像服务器
+        :param monUrls: Ceph mon的地址列表
+        :param name: 镜像服务器新名称
+        :param poolName: 用于存放镜像的Ceph pool名字
+        :param description: 镜像服务器详细描述
+        :param ceph_type: 类型为Ceph
+        :param importImages: 是否导入镜像
+        :param resourceUuid: 资源uuid
+        """
+        if not monUrls or not name:
+            raise ParameterIsNoneError(monUrls=monUrls, name=name)
+        command = f"{self.zstack_cli} {commands.ZStack_Add_Ceph_BackupStorage.format(name=name, monUrls=monUrls)}"
+        if poolName:
+            command = f"{command} poolName={poolName}"
+        if description:
+            command = f"{command} description={description}"
+        if ceph_type:
+            command = f"{command} type={ceph_type}"
+        if importImages:
+            command = f"{command} importImages={importImages}"
+        if resourceUuid:
+            command = f"{command} resourceUuid={resourceUuid}"
+        response = self.client.run_command(command)
+        return response['stdout']
+
+    def query_ceph_backupStorage(self, uuid: str = None, hostname: str = None) -> Union[Dict, str]:
+        """
+        查询Ceph镜像服务器
+        :param uuid:
+        :param hostname:
+        """
+        command = f"{self.zstack_cli} {commands.ZStack_Query_Ceph_BackupStorage}"
+        if uuid:
+            command = f"{command} uuid={uuid}"
+        if hostname:
+            command = f"{command} mons.hostname={hostname}"
+        response = self.client.run_command(command)
+        return response['stdout']
+
+    def update_ceph_backupStorage(self, monUuid: str, hostname: str = None, sshUsername: str = None, sshPassword: str = None,
+                                  sshPort: int = 22, monPort: int = 22) -> Union[Dict, str]:
+        """
+        更新Ceph镜像服务器mon节点
+        :param monUuid: mon节点uuid
+        :param hostname: mon节点新主机地址
+        :param sshUsername: mon节点主机ssh用户名
+        :param sshPassword: mon节点主机ssh用户密码
+        :param sshPort: mon节点主机ssh端口
+        :param monPort: mon节点的端口
+        """
+        if not monUuid:
+            raise ParameterIsNoneError(monUuid=monUuid)
+        command = f"{self.zstack_cli} {commands.ZStack_Update_Ceph_BackupStorage.format(monUuid=monUuid)}"
+        if hostname:
+            command = f"{command} hostname={hostname}"
+        if sshUsername:
+            command = f"{command} sshUsername={sshUsername}"
+        if sshPassword:
+            command = f"{command} sshPassword={sshPassword}"
+        if sshPort:
+            command = f"{command} sshPort={sshPort}"
+        if monPort:
+            command = f"{command} monPort={monPort}"
+        response = self.client.run_command(command)
+        return response['stdout']
+
+    def add_mon_to_ceph_backupStorage(self, uuid: str, monUrls: str) -> Union[Dict, str]:
+        """
+        为Ceph镜像服务器添加mon节点
+        :param uuid: Ceph镜像服务器uuid
+        :param monHostnames: mon节点名字列表
+        """
+        if not uuid or not monUrls:
+            raise ParameterIsNoneError(uuid=uuid, monUrls=monUrls)
+        command = f"{self.zstack_cli} {commands.ZStack_Add_Mon_to_Ceph_BackupStorage.format(uuid=uuid, monUrls=monUrls)}"
+        response = self.client.run_command(command)
+        return response['stdout']
+
+    def remove_mon_from_ceph_backupStorage(self, uuid: str, monHostnames: str) -> Union[Dict, str]:
+        """
+        Ceph镜像服务器删除mon
+        :param uuid: Ceph镜像服务器uuid
+        :param monHostnames: mon节点名字列表
+        """
+        if not uuid or not monHostnames:
+            raise ParameterIsNoneError(uuid=uuid, monHostnames=monHostnames)
+        command = f"{self.zstack_cli} {commands.ZStack_Remove_Mon_from_Ceph_BackupStorage.format(uuid=uuid, monHostnames=monHostnames)}"
+        response = self.client.run_command(command)
+        return response['stdout']

@@ -292,6 +292,16 @@ ZStack_BackupStorage_Migrate_Image = "BackupStorageMigrateImage imageUuid={iuuid
                                       dstBackupStorageUuid={dstUuid}"
 ZStack_Get_BackupStorage_Candidates_from_Image_Migration = "GetBackupStorageCandidatesForImageMigration \
                                                             srcBackupStorageUuid={srcUuid}"
+ZStack_Add_ImageStore_BakcupStorage = "AddImageStoreBackupStorage hostname='{hostname}' username={username} name={name} \
+                                       url='{url}' password={password}"
+ZStack_Update_ImageStore_BackupStorage = "UpdateImageStoreBackupStorage uuid={uuid} name={name}"
+ZStack_Reconnect_ImageStore_BackupStorage = "ReconnectImageStoreBackupStorage uuid={uuid}"
+ZStack_Recliam_Space_from_ImageStore = "ReclaimSpaceFromImageStore uuid={uuid}"
+ZStack_Add_Ceph_BackupStorage = "AddCephBackupStorage name={name} monUrls={monUrls}"
+ZStack_Query_Ceph_BackupStorage = "QueryCephBackupStorage"
+ZStack_Update_Ceph_BackupStorage = "UpdateCephBackupStorageMon monUuid={monUuid}"
+ZStack_Add_Mon_to_Ceph_BackupStorage = "AddMonToCephBackupStorage uuid={uuid} monUrls='{monUrls}'"
+ZStack_Remove_Mon_from_Ceph_BackupStorage = "RemoveMonFromCephBackupStorage uuid={uuid} monHostnames={monHostnames}"
 
 # L2 Network
 ZStack_Get_L2_Network_Types = "GetL2NetworkTypes"

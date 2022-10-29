@@ -303,6 +303,10 @@ ZStack_Update_Ceph_BackupStorage = "UpdateCephBackupStorageMon monUuid={monUuid}
 ZStack_Add_Mon_to_Ceph_BackupStorage = "AddMonToCephBackupStorage uuid={uuid} monUrls='{monUrls}'"
 ZStack_Remove_Mon_from_Ceph_BackupStorage = "RemoveMonFromCephBackupStorage uuid={uuid} monHostnames={monHostnames}"
 
+# Scsi Lun
+ZStack_Query_ScsiLun = "QueryScsiLun"
+ZStack_Detach_ScsiLun_from_Host = "DetachScsiLunFromHost uuid={uuid}"
+
 # L2 Network
 ZStack_Get_L2_Network_Types = "GetL2NetworkTypes"
 ZStack_Query_L2_Network = "QueryL2Network"

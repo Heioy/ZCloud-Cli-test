@@ -308,14 +308,19 @@ ZStack_Query_ScsiLun = "QueryScsiLun"
 ZStack_Detach_ScsiLun_from_Host = "DetachScsiLunFromHost uuid={uuid}"
 
 # L2 Network
+ZStack_Create_L2_Vxlan_Network_Pool = "CreateL2VxlanNetworkPool name={name} zoneUuid={zoneUuid} physicalInterface={interface}"
+ZStack_Query_L2_Vxlan_Network_Pool = "QueryL2VxlanNetworkPool"
+ZStack_Create_L2_Vxlan_Network = "CreateL2VxlanNetwork name={name} zoneUuid={zoneUuid} physicalInterface={interface} poolUuid={poolUuid}"
+ZStack_Query_L2_Vxlan_Network = "QueryL2VxlanNetwork"
+ZStack_Create_L2_NoVlan_Network = "CreateL2NoVlanNetwork name={name} physicalInterface={interface} zoneUuid={zoneUuid}"
 ZStack_Get_L2_Network_Types = "GetL2NetworkTypes"
 ZStack_Query_L2_Network = "QueryL2Network"
 ZStack_Query_L2_Vlan_Network = "QueryL2VlanNetwork"
-ZStack_Query_L2_Vxlan_Network = "QueryL2VxlanNetwork"
-ZStack_Query_L2_Vxlan_Network_Pool = "QueryL2VxlanNetworkPool"
-ZStack_Create_L2_NoVlan_Network = "CreateL2NoVlanNetwork"
+
+
+
 ZStack_Create_L2_Vlan_Network = "CreateL2VlanNetwork"
-ZStack_Create_L2_Vxlan_Network = "CreateL2VxlanNetwork"
+
 ZStack_Create_L2_Vxlan_Network_Pool = "CreateL2VxlanNetworkPool"
 ZStack_Attach_L2_Network_2_Cluster = "AttachL2NetworkToCluster"
 ZStack_Detach_L2_Network_From_Cluster = "DetachL2NetworkFromCluster"

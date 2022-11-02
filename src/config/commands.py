@@ -313,19 +313,18 @@ ZStack_Query_L2_Vxlan_Network_Pool = "QueryL2VxlanNetworkPool"
 ZStack_Create_L2_Vxlan_Network = "CreateL2VxlanNetwork name={name} zoneUuid={zoneUuid} physicalInterface={interface} poolUuid={poolUuid}"
 ZStack_Query_L2_Vxlan_Network = "QueryL2VxlanNetwork"
 ZStack_Create_L2_NoVlan_Network = "CreateL2NoVlanNetwork name={name} physicalInterface={interface} zoneUuid={zoneUuid}"
-ZStack_Get_L2_Network_Types = "GetL2NetworkTypes"
-ZStack_Query_L2_Network = "QueryL2Network"
+ZStack_Create_L2_Vlan_Network = "CreateL2VlanNetwork name={name} zoneUuid={zoneUuid} physicalInterface={interface} vlan={vlan}"
 ZStack_Query_L2_Vlan_Network = "QueryL2VlanNetwork"
-
-
-
-ZStack_Create_L2_Vlan_Network = "CreateL2VlanNetwork"
-
-ZStack_Create_L2_Vxlan_Network_Pool = "CreateL2VxlanNetworkPool"
-ZStack_Attach_L2_Network_2_Cluster = "AttachL2NetworkToCluster"
-ZStack_Detach_L2_Network_From_Cluster = "DetachL2NetworkFromCluster"
-ZStack_Update_L2_Network = "UpdateL2Network"
-ZStack_Delete_L2_Network = "DeleteL2Network"
+ZStack_Delete_L2_Network = "DeleteL2Network uuid={uuid}"
+ZStack_Query_L2_Network = "QueryL2Network"
+ZStack_Update_L2_Network = "UpdateL2Network uuid={uuid}"
+ZStack_Get_L2_Network_Types = "GetL2NetworkTypes"
+ZStack_Attach_L2_Network_2_Cluster = "AttachL2NetworkToCluster clusterUuid={clusterUuid} l2NetworkUuid={l2uuid}"
+ZStack_Detach_L2_Network_From_Cluster = "DetachL2NetworkFromCluster clusterUuid={clusterUuid} l2NetworkUuid={l2uuid}"
+ZStack_Create_Vni_Range = "CreateVniRange name={name} startVni={startVni} endVni={endVni} l2NetworkUuid={l2uuid}"
+ZStack_Query_Vni_Range = "QueryVniRange"
+ZStack_Delete_Vni_Range = "DeleteVniRange uuid={uuid}"
+ZStack_Update_Vni_Range = "UpdateVniRange uuid={uuid}"
 
 # L3 Network
 ZStack_Query_L3_Network = "QueryL3Network"

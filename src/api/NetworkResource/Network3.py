@@ -238,3 +238,200 @@ class L3Network(ZStackClient):
             command = f"{command} ipRangeUuids={ipRangeUuids}"
         response = self.client.run_command(command)
         return response['stdout']
+
+    def add_ip_range(self, name: str, l3NetworkUuid: str, startIp: str, endIp: str, gateway: str, netmask: str,
+                    ipRangeType: str = None, description: str = None, resourceUuid: str = None) -> Union[Dict, str]:
+        """
+        添加IP地址范围
+        :param name: 三层网络名称
+        :param l3NetworkUuid: 三层网络详细描述
+        :param startIp: 起始IP
+        :param endIp: 结束IP
+        :param description: 三层网络uuid
+        :param gateway: 网关
+        :param ipRangeType: 地址类型 ["Normal", "AddressPool"]
+        :param netmask: 子网掩码
+        :param resourceUuid: 资源uuid。若指定，三层网络会使用该字段值作为uuid
+        """
+        if not name or not l3NetworkUuid or not startIp or not endIp or not gateway or not netmask:
+            raise ParameterIsNoneError(name=name, l3NetworkUuid=l3NetworkUuid)
+        command = f"{self.zstack_cli} {commands.ZStack_Add_IPRange.format(name=name, l3uuid=l3NetworkUuid, startIp=startIp, endIp=endIp, gateway=gateway, netmask=netmask)}"
+        if description:
+            command = f"{command} description={description}"
+        if ipRangeType:
+            command = f"{command} ipRangeType={ipRangeType}"
+        if resourceUuid:
+            command = f"{command} resourceUuid={resourceUuid}"
+        response = self.client.run_command(command)
+        return response['stdout']
+
+    def delete_ip_range(self, uuid: str, deleteMode: str = None) -> Union[Dict, str]:
+        """
+        删除IP地址范围
+        :param uuid: IP地址范围的UUID
+        :param deleteMode: 资源删除模式 【"Permissive"， "Enforcing"】
+        """
+        if not uuid:
+            raise ParameterIsNoneError(uuid=uuid)
+        command = f"{self.zstack_cli} {commands.ZStack_Delete_IPRange.format(uuid=uuid)}"
+        if deleteMode:
+            command = f"{command} deleteMode={deleteMode}"
+        response = self.client.run_command(command)
+        return response['stdout']
+
+    def query_ip_range(self, uuid: str = None, l2NetworkUuid: str = None) -> Union[Dict, str]:
+        """
+        查询IP地址范围
+        :param uuid:
+        :param l2NetworkUuid:
+        """
+        command = f"{self.zstack_cli} {commands.ZStack_Query_IPRange}"
+        if uuid:
+            command = f"{command} uuid={uuid}"
+        if l2NetworkUuid:
+            command = f"{command} l3Network.l2NetworkUuid={l2NetworkUuid}"
+        response = self.client.run_command(command)
+        return response['stdout']
+
+    def update_ip_range(self, uuid: str, name: str, description: str = None) -> Union[Dict, str]:
+        """
+        更新IP地址范围
+        :param uuid: 三层网络uuid
+        :param name: 三层网络名称
+        :param description: 三层网络的详细描述
+        """
+        if not uuid or not name:
+            raise ParameterIsNoneError(uuid=uuid, name=name)
+        command = f"{self.zstack_cli} {commands.ZStack_Update_IPRange.format(uuid=uuid)}"
+        if description:
+            command = f"{command} description={description}"
+        response = self.client.run_command(command)
+        return response['stdout']
+
+    def add_ip_range_by_network_cidr(self, name: str, l3NetworkUuid: str, networkCidr: str, description: str = None,
+                                     gateway: str = None, ipRangeType: str = None, resourceUuid: str = None) -> Union[Dict, str]:
+        """
+        通过网络CIDR添加IP地址范围
+        :param name: 三层网络名称
+        :param l3NetworkUuid: 三层网络uuid
+        :param networkCidr: 网络CIDR
+        :param description: 三层网络的详细描述
+        :param gateway: 网关
+        :param ipRangeType: 地址类型 ["Normal", "AddressPool"]
+        :param resourceUuid: 资源uuid。若指定，三层网络会使用该字段值作为uuid
+        """
+        if not name or not l3NetworkUuid or not networkCidr:
+            raise ParameterIsNoneError(name=name, l3NetworkUuid=l3NetworkUuid, networkCidr=networkCidr)
+        command = f"{self.zstack_cli} {commands.ZStack_Add_IPRange_by_Network_Cidr.format(name=name, cidr=networkCidr, l3uuid=l3NetworkUuid)}"
+        if description:
+            command = f"{command} description={description}"
+        if gateway:
+            command = f"{command} gateway={gateway}"
+        if ipRangeType:
+            command = f"{command} ipRangeType={ipRangeType}"
+        if resourceUuid:
+            command = f"{command} resourceUuid={resourceUuid}"
+        response = self.client.run_command(command)
+        return response['stdout']
+
+    def get_l3Network_mtu(self, l3NetworkUuid: str) -> Union[Dict, str]:
+        """
+        获取三层网络Mtu值
+        :param l3NetworkUuid: 三层网络uuid
+        """
+        if not l3NetworkUuid:
+            raise ParameterIsNoneError(l3NetworkUuid=l3NetworkUuid)
+        command = f"{self.zstack_cli} {commands.ZStack_Get_L3Network_MTU.format(l3uuid=l3NetworkUuid)}"
+        response = self.client.run_command(command)
+        return response['stdout']
+
+    def set_l3Network_mtu(self, l3NetworkUuid: str, mtu: str) -> Union[Dict, str]:
+        """
+        设置三层网络Mtu值
+        :param l3NetworkUuid: 三层网络uuid
+        :param mtu:
+        """
+        if not l3NetworkUuid or not mtu:
+            raise ParameterIsNoneError(l3NetworkUuid=l3NetworkUuid, mtu=mtu)
+        command = f"{self.zstack_cli} {commands.ZStack_Set_L3_Network_MTU.format(l3uuid=l3NetworkUuid, mtu=mtu)}"
+        response = self.client.run_command(command)
+        return response['stdout']
+
+    def get_l3NetworkRouter_interface_ip(self, l3NetworkUuid: str) -> Union[Dict, str]:
+        """
+        p获取三层网络上路由器的接口地址
+        :param l3NetworkUuid: 三层网络uuid
+        """
+        if not l3NetworkUuid:
+            raise ParameterIsNoneError(l3NetworkUuid=l3NetworkUuid)
+        command = f"{self.zstack_cli} {commands.ZStack_Get_L3_Network_Router.format(l3uuid=l3NetworkUuid)}"
+        response = self.client.run_command(command)
+        return response['stdout']
+
+    def set_l3NetworkRouter_interface_ip(self, l3NetworkUuid: str, routerInterfaceIp: str) -> Union[Dict, str]:
+        """
+        设置三层网络路由器接口IP
+        :param l3NetworkUuid: 三层网络uuid
+        :param routerInterfaceIp:
+        """
+        if not l3NetworkUuid or not  routerInterfaceIp:
+            raise ParameterIsNoneError(l3NetworkUuid=l3NetworkUuid, routerInterfaceIp=routerInterfaceIp)
+        command = f"{self.zstack_cli} {commands.ZStack_Set_L3_Network_Router.format(l3uuid=l3NetworkUuid, router=routerInterfaceIp)}"
+        response = self.client.run_command(command)
+        return response['stdout']
+
+    def query_ip_address(self, uuid: str = None) -> Union[Dict, str]:
+        """
+        查询IP地址
+        :param uuid:
+        """
+        command = f"{self.zstack_cli} {commands.ZStack_Query_IP_Address}"
+        if uuid:
+            command = f"{command} uuid={uuid}"
+        response = self.client.run_command(command)
+        return response['stdout']
+
+    def get_l3Network_ip_statistic(self, l3NetworkUuid: str, resourceType: str = None, ip: str = None, sortBy: str = None,
+                                   sortDirection: str = None, start: str = None, limit: str = None,
+                                   replyWithCount: str = None) -> Union[Dict, str]:
+        """
+        获取三层网络IP地址使用情况统计
+        :param l3NetworkUuid: 三层网络UUID
+        :param resourceType: 统计资源类型 ["All", "Vip", "VM"]
+        :param ip: 指定IP地址
+        :param sortBy: 排序方式 ["Ip", "CreateDate"]
+        :param sortDirection: 排序方向 ["asc", "desc"]
+        :param start: 统计结果起始位置
+        :param limit: 统计结果数量
+        :param replyWithCount: 同时返回统计结果总数
+        """
+        if not l3NetworkUuid:
+            raise ParameterIsNoneError(l3NetworkUuid=l3NetworkUuid)
+        command = f"{self.zstack_cli} {commands.ZStack_Get_L3Network_IP_Statistic.format(l3uuid=l3NetworkUuid)}"
+        if resourceType:
+            command = f"{command} resourceType={resourceType}"
+        if ip:
+            command = f"{command} ip={ip}"
+        if sortBy:
+            command = f"{command} sortBy={sortBy}"
+        if sortDirection:
+            command = f"{command} sortDirection={sortDirection}"
+        if start:
+            command = f"{command} start={start}"
+        if limit:
+            command = f"{command} limit={limit}"
+        if replyWithCount:
+            command = f"{command} replyWithCount={replyWithCount}"
+        response = self.client.run_command(command)
+        return response['stdout']
+
+    def query_address_pool(self, uuid: str = None) -> Union[Dict, str]:
+        """
+        查询IP地址池
+        :param uuid:
+        """
+        command = f"{self.zstack_cli} {commands.ZStack_Query_Address_Pool}"
+        if uuid:
+            command = f"{command} uuid={uuid}"
+        response = self.client.run_command(command)
+        return response['stdout']

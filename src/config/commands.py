@@ -354,6 +354,28 @@ ZStack_Query_IP_Address = "QueryIpAddress"
 ZStack_Get_L3Network_IP_Statistic = "GetL3NetworkIpStatistic l3NetworkUuid={l3uuid}"
 ZStack_Query_Address_Pool = "QueryAddressPool"
 
+# Virtual Router
+ZStack_Query_VirtualRouter = "QueryVirtualRouterVm"
+ZStack_Reconnect_VirtualRouter = "ReconnectVirtualRouter vmInstanceUuid={vuuid}"
+ZStack_Create_VirtualRouter_Offering = f"CreateVirtualRouterOffering name={name} zoneUuid={zoneUuid} cpuNum={cpuName} \
+                                         memorySize={memorySize} imageUuid={iuuid} managementNetworkUuid={netUuid}"
+ZStack_Query_VirtualRouter_Offering = "QueryVirtualRouterOffering"
+ZStack_Update_VirtualRouter_Offering = "UpdateVirtualRouterOffering uuid={uuid} name={name}"
+ZStack_Query_Applicance_VM = "QueryApplianceVm"
+ZStack_Get_Attachable_Public_L3_for_VRouter = "GetAttachablePublicL3ForVRouter vmInstanceUuid={vuuid}"
+ZStack_Create_VRouterRoute_Table = "CreateVRouterRouteTable name={name}"
+ZStack_Delete_VRouterRoute_Table = "DeleteVRouterRouteTable uuid={uuid}"
+ZStack_Query_VRouterRoute_Table = "QueryVRouterRouteTable"
+ZStack_Get_VRouterRoute_Table = "GetVRouterRouteTable virtualRouterVmUuid={virtualRouterVmUuid}"
+ZStack_Add_VRouterRoute_Entry = "AddVRouterRouteEntry routeTableUuid={routeUuid} destination={destination}"
+ZStack_Delete_VRouterRoute_Entry = "DeleteVRouterRouteEntry uuid={uuid} routeTableUuid={routeUuid}"
+ZStack_Query_VRouterRoute_Entry = "QueryVRouterRouteEntry"
+ZStack_Attach_VRouterRoute_Entry_to_Router = "AttachVRouterRouteTableToVRouter virtualRouterVmUuid={vrouteUuid} \
+                                              routeTableUuid={routeUuid}"
+ZStack_Detach_VRouterRoute_Entry_from_VRouter = "DetachVRouterRouteTableFromVRouter virtualRouterVmUuid={vrouteeUuid} \
+                                                 routeTableUuid={routeUuid}"
+ZStack_Query_VirtualRouter_VRouterRoute_Table_Ref = "QueryVirtualRouterVRouterRouteTableRef"
+
 # Host
 ZStack_Query_Host = "QueryHost"
 ZStack_Reconnect_Host = "ReconnectHost uuid={uuid}"

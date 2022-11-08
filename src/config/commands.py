@@ -376,6 +376,24 @@ ZStack_Detach_VRouterRoute_Entry_from_VRouter = "DetachVRouterRouteTableFromVRou
                                                  routeTableUuid={routeUuid}"
 ZStack_Query_VirtualRouter_VRouterRoute_Table_Ref = "QueryVirtualRouterVRouterRouteTableRef"
 
+# VPC Router
+ZStack_Create_VpcVRouter = "CreateVpcVRouter name={name} virtualRouterOfferingUuid={virtualRouterOfferingUuid}"
+ZStack_Query_VpcRouter = "QueryVpcRouter"
+ZStack_Get_Attachable_VPC_L3Network = "GetAttachableVpcL3Network uuid={uuid}"
+ZStack_Get_VPCVRouter_Distributed_Routing_Connections = "GetVpcVRouterDistributedRoutingConnections uuid={uuid}"
+ZStack_Get_VPCVRouter_Distributed_Routing_Enabled = "GetVpcVRouterDistributedRoutingEnabled uuid={uuid}"
+ZStack_Set_VPCVRouter_Distributed_Routing_Enabled = "SetVpcVRouterDistributedRoutingEnabled uuid={uuid} stateEvent={state}"
+ZStack_Add_DNS_to_VPCRouter = "AddDnsToVpcRouter dns={dns} uuid={uuid}"
+ZStack_Remove_DNS_from_VPCRouter = "RemoveDnsFromVpcRouter dns={dns} uuid={uuid}"
+ZStack_Get_VPCVRouter_NetworkService_State = "GetVpcVRouterNetworkServiceState uuid={uuid} networkService={service}"
+ZStack_Set_VPCVRouter_NetworkService_State = "SetVpcVRouterNetworkServiceState uuid={uuid} networkService={service} state={state}"
+ZStack_Change_VPC_HAGroup_Monitorlps = "ChangeVpcHaGroupMonitorIps uuid={uuid}"
+ZStack_Create_VPC_HAGroup = "CreateVpcHaGroup name={name}"
+ZStack_Delete_VPC_HAGroup = "DeleteVpcHaGroup uuid={uuid}"
+ZStack_Update_VPC_HAGroup = "UpdateVpcHaGroup uuid={uuid}"
+ZStack_Query_VPC_HAGroup = "QueryVpcHaGroup"
+ZStack_Update_Virtual_Router = "UpdateVirtualRouter vmInstanceUuid={vuuid}"
+
 # Host
 ZStack_Query_Host = "QueryHost"
 ZStack_Reconnect_Host = "ReconnectHost uuid={uuid}"

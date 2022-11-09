@@ -394,6 +394,19 @@ ZStack_Update_VPC_HAGroup = "UpdateVpcHaGroup uuid={uuid}"
 ZStack_Query_VPC_HAGroup = "QueryVpcHaGroup"
 ZStack_Update_Virtual_Router = "UpdateVirtualRouter vmInstanceUuid={vuuid}"
 
+# VRouter OSPF
+ZStack_Create_VRouter_OSPF_Area = "CreateVRouterOspfArea areaId={areaId}"
+ZStack_Delete_VRouter_OSPF_Area = "DeleteVRouterOspfArea uuid={uuid}"
+ZStack_Get_VRouter_OSPF_Neighbor = "GetVRouterOspfNeighbor vRouterUuid={vRouterUuid}"
+ZStack_Query_VRouter_OSPF_Area = "QueryVRouterOspfArea"
+ZStack_Get_VRouter_RouterID = "GetVRouterRouterId vRouterUuid={vRouterUuid}"
+ZStack_Set_VRouter_RouterID = "SetVRouterRouterId vRouterUuid={vRouterUuid} routerId={routerId}"
+ZStack_Add_VRouter_Networks_to_OSPF_Area = "AddVRouterNetworksToOspfArea routerAreaUuid={routerAreaUuid} \
+                                            vRouterUuid={vRouterUuid} l3NetworkUuids={l3uuid}"
+ZStack_Remove_VRouter_Networks_from_OSPF_Area = "RemoveVRouterNetworksFromOspfArea uuids={uuids}"
+ZStack_Update_VRouter_OSPF_Area = "UpdateVRouterOspfArea uuid={uuid}"
+ZStack_Query_VRouter_OSPF_Network = "QueryVRouterOspfNetwork"
+
 # Host
 ZStack_Query_Host = "QueryHost"
 ZStack_Reconnect_Host = "ReconnectHost uuid={uuid}"

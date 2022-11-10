@@ -407,6 +407,17 @@ ZStack_Remove_VRouter_Networks_from_OSPF_Area = "RemoveVRouterNetworksFromOspfAr
 ZStack_Update_VRouter_OSPF_Area = "UpdateVRouterOspfArea uuid={uuid}"
 ZStack_Query_VRouter_OSPF_Network = "QueryVRouterOspfNetwork"
 
+# Multicase Router
+ZStack_Create_MulticastRouter = "CreateMulticastRouter vpcRouterVmUuid={vpcRouterVmUuid}"
+ZStack_Delete_MulticastRouter = "DeleteMulticastRouter uuid={uuid}"
+ZStack_Query_MulticastRouter = "QueryMulticastRouter"
+ZStack_Change_MulticastRouter_State = "ChangeMulticastRouterState uuid={uuid} stateEvent={state}"
+ZStack_Get_VPC_MulticastRouter = "GetVpcMulticastRoute uuid={uuid}"
+ZStack_Add_Rendezvous_Point_to_MulticastRouter = "AddRendezvousPointToMulticastRouter uuid={uuid} rpAddress={rpAddress} \
+                                                  groupAddress={groupAddress}"
+
+ZStack_Remove_Rendezvous_Point_from_MulticastRouter = "RemoveRendezvousPointFromMulticastRouter uuid={uuid} rpAddress={rpAddress} \
+                                                       groupAddress={groupAddress}"
 # Host
 ZStack_Query_Host = "QueryHost"
 ZStack_Reconnect_Host = "ReconnectHost uuid={uuid}"

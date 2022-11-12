@@ -418,6 +418,29 @@ ZStack_Add_Rendezvous_Point_to_MulticastRouter = "AddRendezvousPointToMulticastR
 
 ZStack_Remove_Rendezvous_Point_from_MulticastRouter = "RemoveRendezvousPointFromMulticastRouter uuid={uuid} rpAddress={rpAddress} \
                                                        groupAddress={groupAddress}"
+
+# Policy Route Rule Set
+ZStack_Create_PolicyRouteRuleSet = "CreatePolicyRouteRuleSet name={name} vRouterUuid={vRouterUuid}"
+ZStack_Delete_PolicyRouteRuleSet = "DeletePolicyRouteRuleSet uuid={uuid}"
+ZStack_Update_PolicyRouteRuleSet = "UpdatePolicyRouteRuleSet uuid={uuid} name={name}"
+ZStack_Query_PolicyRouteRuleSet = "QueryPolicyRouteRuleSet"
+ZStack_Query_PolicyRouteRuleSetL3Ref = "QueryPolicyRouteRuleSetL3Ref"
+ZStack_Query_PolicyRouteRuleSetVRouterRef = "QueryPolicyRouteRuleSetVRouterRef"
+ZStack_Create_PolciyRouteRule = "CreatePolicyRouteRule ruleSetUuid={ruleSetUuid} tableUuid={tableUuid} ruleNumber={ruleNumber}"
+ZStack_Delete_PolciyRouteRule = "DeletePolicyRouteRule uuid={uuid}"
+ZStack_Create_PolciyRouteTable = "CreatePolicyRouteTable vRouterUuid={vRouterUuid} number={bumber}"
+ZStack_Delete_PolciyRouteTable = "DeletePolicyRouteTable uuid={uuid}"
+ZStack_Query_PolciyRouteTable = "QueryPolicyRouteTable"
+ZStack_Query_PolciyRouteTableVRouterRef = "QueryPolicyRouteTableVRouterRef"
+ZStack_Create_PolicyRouteTableRouteEntry = "CreatePolicyRouteTableRouteEntry tableUuid={tableUuid} destinationCidr={destinationCidr} \
+                                            nextHopIp={nextHopIp}"
+ZStack_Delete_PolicyRouteTableRouteEntry = "DeletePolicyRouteTableRouteEntry uuid={uuid}"
+ZStack_Query_PolicyRouteTableRouteEntry = "QueryPolicyRouteTableRouteEntry"
+ZStack_Query_PolicyRouteRule = "QueryPolicyRouteRule"
+ZStack_Attach_PolicyRouteRuleSet_to_L3 = "AttachPolicyRouteRuleSetToL3 l3Uuid={l3uuid} ruleSetUuid={ruleSetUuid}"
+ZStack_Detach_PolicyRouteRuleSet_from_L3 = "DetachPolicyRouteRuleSetFromL3 l3Uuid={l3uuid} ruleSetUuid={ruleSetUuid}"
+ZStack_Get_PolicyRouteRuleSet_from_VirtualRouter = "GetPolicyRouteRuleSetFromVirtualRouter vmInstanceUuid={vuuid}"
+
 # Host
 ZStack_Query_Host = "QueryHost"
 ZStack_Reconnect_Host = "ReconnectHost uuid={uuid}"

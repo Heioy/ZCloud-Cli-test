@@ -357,7 +357,7 @@ ZStack_Query_Address_Pool = "QueryAddressPool"
 # Virtual Router
 ZStack_Query_VirtualRouter = "QueryVirtualRouterVm"
 ZStack_Reconnect_VirtualRouter = "ReconnectVirtualRouter vmInstanceUuid={vuuid}"
-ZStack_Create_VirtualRouter_Offering = f"CreateVirtualRouterOffering name={name} zoneUuid={zoneUuid} cpuNum={cpuName} \
+ZStack_Create_VirtualRouter_Offering = "CreateVirtualRouterOffering name={name} zoneUuid={zoneUuid} cpuNum={cpuName} \
                                          memorySize={memorySize} imageUuid={iuuid} managementNetworkUuid={netUuid}"
 ZStack_Query_VirtualRouter_Offering = "QueryVirtualRouterOffering"
 ZStack_Update_VirtualRouter_Offering = "UpdateVirtualRouterOffering uuid={uuid} name={name}"

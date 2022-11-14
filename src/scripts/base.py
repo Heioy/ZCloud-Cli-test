@@ -4,6 +4,9 @@
 import os
 import unittest
 from src.api.VmPool.VmInstance import Instances
+from src.api.VmPool.Image import Images
+from src.api.VmPool.InstanceOffering import InstanceOffering
+from src.api.NetworkResource.Network3 import L3Network
 from src.scripts import logDirName, date
 from src.utils.logger import get_logger
 
@@ -31,6 +34,9 @@ class BaseCases(unittest.TestCase):
         self.logger = get_logger(filename=filename)
         # __base = Base(logger=self.logger)
         self.vmController = Instances(logger=self.logger)
+        self.imgController = Images(logger=self.logger)
+        self.instanceOfferingController = InstanceOffering(logger=self.logger)
+        self.l3Controller = L3Network(logger=self.logger)
 
     @classmethod
     def setUpClass(cls) -> None:

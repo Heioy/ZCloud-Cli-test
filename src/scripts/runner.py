@@ -8,7 +8,7 @@ import unittest
 from src.utils.readFile import read_toml
 from typing import List
 from src.utils.errors import ParameterIsNoneError
-from src.scripts.instancePool.createVmInstance import Test_Create_Vm_Instance
+from src.scripts.instancePool.createVmInstance import Test_Create_and_Delete_Vm_Instance
 
 base_path = os.path.dirname(os.path.dirname(__file__))
 sys.path.append(base_path)

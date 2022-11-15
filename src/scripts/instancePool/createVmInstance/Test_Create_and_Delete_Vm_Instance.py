@@ -21,7 +21,7 @@ class TestCreateVMInstance(BaseCases):
     def tearDownClass(cls) -> None:
         pass
 
-    def test_query_vm_instance(self):
+    def test_create_vm_instance(self):
         self.logger.info("查询已存在的虚拟机...")
         result = self.vmController.query_vm_instance()
         self.logger.info(result)
@@ -56,5 +56,15 @@ class TestCreateVMInstance(BaseCases):
         response = self.vmController.create_vm_instance(vmName=self.name, imageUuid=self.imageUuid[0],
                                                         l3NetworkUuids=self.l3Uuid, instanceOfferingUuid=self.instanceOffering[0])
         self.assertTrue(response['success'])
+
+    def test_delete_vm_instance(self):
+        uuid: str = None
+        self.logger.info("获取创建虚拟的uuid...")
+        queryResponse = self.vmController.query_vm_instance(vmName=self.name)
+        for vmInventory in queryResponse['inventories']:
+            uuid = vmInventory['uuid']
+        response = self.vmController.destory_vm_instance(uuid=uuid)
+        self.assertTrue(response['success'])
+
 
 

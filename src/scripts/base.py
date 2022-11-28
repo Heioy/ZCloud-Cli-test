@@ -5,6 +5,8 @@ import os
 import unittest
 from src.api.VmPool.VmInstance import Instances
 from src.api.VmPool.Image import Images
+from src.api.VmPool.DataVolume import DataVolume
+from src.api.VmPool.DiskOffering import DiskOffering
 from src.api.VmPool.InstanceOffering import InstanceOffering
 from src.api.NetworkResource.Network3 import L3Network
 from src.scripts import logDirName, date
@@ -37,6 +39,8 @@ class BaseCases(unittest.TestCase):
         self.imgController = Images(logger=self.logger)
         self.instanceOfferingController = InstanceOffering(logger=self.logger)
         self.l3Controller = L3Network(logger=self.logger)
+        self.volumeController = DataVolume(logger=self.logger)
+        self.OfferingController = DiskOffering(logger=self.logger)
 
     @classmethod
     def setUpClass(cls) -> None:

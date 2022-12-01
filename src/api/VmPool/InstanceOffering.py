@@ -16,7 +16,7 @@ class InstanceOffering(ZStackClient):
     def __init__(self, logger: Logger = None):
         super(InstanceOffering, self).__init__(logger=logger)
 
-    def create_instance_offering(self, name: str, cpuNum: str, memorySize: str, description: str = None,
+    def create_instance_offering(self, name: str, cpuNum: int, memorySize: int, description: str = None,
                                  allocatorStrategy: str = None, sortKey: str = None, offtype: str = None,
                                  resourceUuid: str = None) -> Union[Dict, str]:
         """
